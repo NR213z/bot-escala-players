@@ -1,18 +1,18 @@
 name: "Bot escala Players"
 
 on:
-  schedule:
-    - cron: "0 13,17,21 * * *" # respaldo; el disparador real es el Cloudflare Worker (ver worker/)
+  repository_dispatch:
+    types: [telegram-update]
   workflow_dispatch:
     inputs:
       modo:
-        description: "poll | remind-hoy | remind-manana"
-        default: "poll"
+        description: "remind-hoy | remind-manana | poll (poll solo sirve sin webhook activo)"
+        default: "remind-hoy"
         type: choice
         options:
-          - poll
           - remind-hoy
           - remind-manana
+          - poll
 
 permissions:
   contents: write
@@ -36,26 +36,24 @@ jobs:
       - name: Determinar modo
         id: modo
         run: |
-          case "${{ github.event.inputs.modo }}" in
-            remind-hoy) echo "args=remind hoy" >> "$GITHUB_OUTPUT" ;;
-            remind-manana) echo "args=remind manana" >> "$GITHUB_OUTPUT" ;;
-            *) echo "args=poll" >> "$GITHUB_OUTPUT" ;;
+          case "${{ github.event_name }}" in
+            repository_dispatch) echo "args=webhook" >> "$GITHUB_OUTPUT" ;;
+            *)
+              case "${{ github.event.inputs.modo }}" in
+                remind-manana) echo "args=remind manana" >> "$GITHUB_OUTPUT" ;;
+                poll) echo "args=poll" >> "$GITHUB_OUTPUT" ;;
+                *) echo "args=remind hoy" >> "$GITHUB_OUTPUT" ;;
+              esac
+              ;;
           esac
 
-      - name: Poll (siempre, para no perder confirmaciones pendientes)
-        run: python bot.py poll
-        env:
-          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          GROUP_CHAT_ID: ${{ secrets.GROUP_CHAT_ID }}
-          OWNER_CHAT_ID: ${{ secrets.OWNER_CHAT_ID }}
-
-      - name: Recordatorio (si corresponde)
-        if: steps.modo.outputs.args != 'poll'
+      - name: Ejecutar
         run: python bot.py ${{ steps.modo.outputs.args }}
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           GROUP_CHAT_ID: ${{ secrets.GROUP_CHAT_ID }}
           OWNER_CHAT_ID: ${{ secrets.OWNER_CHAT_ID }}
+          TELEGRAM_UPDATE_JSON: ${{ toJson(github.event.client_payload.update) }}
 
       - name: Guardar estado
         run: |

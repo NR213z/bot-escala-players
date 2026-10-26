@@ -5,7 +5,7 @@ sigue el mismo formato para completar las 7 fechas de Players esperadas
 (29/9 A+, 3/10 Canchas, 10/10 EJ, 15/10 HdlS, 20/10 A+, 24/10 Canchas, 31/10 EJ),
 porque el plan no incluía el cronograma completo del mes.
 """
-from parser import parse_cronograma
+from parser import parse_cronograma, parse_escala_header
 
 CRONOGRAMA = """
 ✅ CRONOGRAMA DE COBERTURAS
@@ -55,7 +55,40 @@ def test_texto_sin_header_no_es_cronograma():
     assert mes is None and eventos == []
 
 
+ESCALA_NOMBRES = """ESCALA ALGO MAS 20/10:
+
+📸 Fotos:
+• @Vthsebas
+
+📱Reels:
+• @Brandon
+
+📲 Editar Rells:
+• @Mvilca
+
+📖 Palabra:
+• @Jessicalopezok
+
+✍🏼 Copy:
+• @Priscila
+
+🖼 Zócalo:
+• @Jeffx100"""
+
+
+def test_parse_escala_header_con_nombres():
+    dia, mes = parse_escala_header(ESCALA_NOMBRES)
+    assert (dia, mes) == (20, 10), (dia, mes)
+
+
+def test_parse_escala_header_no_matchea_cronograma():
+    dia, mes = parse_escala_header("✅ CRONOGRAMA DE COBERTURAS\n🗓 Octubre, 2026")
+    assert (dia, mes) == (None, None)
+
+
 if __name__ == "__main__":
     test_parse_cronograma_octubre()
     test_texto_sin_header_no_es_cronograma()
-    print("OK: las 7 fechas de Players coinciden.")
+    test_parse_escala_header_con_nombres()
+    test_parse_escala_header_no_matchea_cronograma()
+    print("OK: las 7 fechas de Players y el parseo de la escala con nombres coinciden.")

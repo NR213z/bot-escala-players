@@ -10,6 +10,7 @@ MESES = {
 
 HEADER_RE = re.compile(r"🗓\s*([A-Za-zñÑáéíóúÁÉÍÓÚ]+),?\s*(\d{4})")
 LINE_RE = re.compile(r"^\W*(A\+|HdlS|EJ|Canchas)\s*•?\s*(\d{1,2})/(\d{1,2}):\s*(\w+)")
+ESCALA_HEADER_RE = re.compile(r"^ESCALA\s+.+?(\d{1,2})/(\d{1,2}):?\s*$", re.IGNORECASE)
 
 
 def sin_acentos(s):
@@ -51,3 +52,15 @@ def parse_cronograma(texto):
 
     eventos.sort(key=lambda e: (e["anio"], e["mes"], e["dia"]))
     return mes_nominal, anio_nominal, eventos
+
+
+def parse_escala_header(texto):
+    """Si el texto empieza con 'ESCALA ... DD/MM:' (la grilla de nombres con @), devuelve (dia, mes); si no, (None, None)."""
+    texto = texto.strip()
+    if not texto:
+        return None, None
+    primera_linea = texto.splitlines()[0].strip()
+    m = ESCALA_HEADER_RE.match(primera_linea)
+    if not m:
+        return None, None
+    return int(m.group(1)), int(m.group(2))
