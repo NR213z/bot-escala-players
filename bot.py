@@ -70,6 +70,12 @@ def mencionan_al_bot(texto):
     return f"@{BOT_USERNAME}".lower() in (texto or "").lower()
 
 
+def es_respuesta_al_bot(msg):
+    respondido = (msg or {}).get("reply_to_message") or {}
+    autor = respondido.get("from") or {}
+    return (autor.get("username") or "").lower() == BOT_USERNAME.lower()
+
+
 def limpiar_pasadas(state):
     hoy_d = ahora()
     state["eventos"] = [
@@ -189,7 +195,9 @@ def manejar_comando_privado(state, texto, chat_id):
         )
 
 
-def procesar_mensaje(state, texto, chat):
+def procesar_mensaje(state, msg):
+    chat = msg.get("chat", {})
+    texto = msg.get("text") or msg.get("caption") or ""
     chat_id = chat.get("id")
     es_privado = chat.get("type") == "private"
     if es_privado:
@@ -202,7 +210,7 @@ def procesar_mensaje(state, texto, chat):
             print(f"[info] mensaje de grupo recibido, GROUP_CHAT_ID todavía no configurado. chat_id={chat_id}")
         if str(chat_id) != str(GROUP_CHAT_ID):
             return
-        if not mencionan_al_bot(texto):
+        if not mencionan_al_bot(texto) and not es_respuesta_al_bot(msg):
             return
 
     texto = texto or ""
@@ -257,8 +265,7 @@ def procesar_update(state, update):
     msg = update.get("message")
     if not msg:
         return
-    texto = msg.get("text") or msg.get("caption") or ""
-    procesar_mensaje(state, texto, msg["chat"])
+    procesar_mensaje(state, msg)
 
 
 # ---------- modos ----------

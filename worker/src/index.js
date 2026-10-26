@@ -53,7 +53,9 @@ function esRelevante(update) {
   if (!msg) return false;
   if (msg.chat && msg.chat.type === "private") return true;
   const texto = (msg.text || msg.caption || "").toLowerCase();
-  return texto.includes(`@${BOT_USERNAME}`);
+  if (texto.includes(`@${BOT_USERNAME}`)) return true;
+  const respondido = msg.reply_to_message;
+  return !!(respondido && respondido.from && (respondido.from.username || "").toLowerCase() === BOT_USERNAME);
 }
 
 export default {
