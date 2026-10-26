@@ -1,0 +1,66 @@
+name: "Bot escala Players"
+
+on:
+  schedule:
+    - cron: "0 13,17,21 * * *" # respaldo; el disparador real es el Cloudflare Worker (ver worker/)
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: "poll | remind-hoy | remind-manana"
+        default: "poll"
+        type: choice
+        options:
+          - poll
+          - remind-hoy
+          - remind-manana
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bot-escala-players
+  cancel-in-progress: false
+
+jobs:
+  correr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install requests
+
+      - name: Determinar modo
+        id: modo
+        run: |
+          case "${{ github.event.inputs.modo }}" in
+            remind-hoy) echo "args=remind hoy" >> "$GITHUB_OUTPUT" ;;
+            remind-manana) echo "args=remind manana" >> "$GITHUB_OUTPUT" ;;
+            *) echo "args=poll" >> "$GITHUB_OUTPUT" ;;
+          esac
+
+      - name: Poll (siempre, para no perder confirmaciones pendientes)
+        run: python bot.py poll
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          GROUP_CHAT_ID: ${{ secrets.GROUP_CHAT_ID }}
+          OWNER_CHAT_ID: ${{ secrets.OWNER_CHAT_ID }}
+
+      - name: Recordatorio (si corresponde)
+        if: steps.modo.outputs.args != 'poll'
+        run: python bot.py ${{ steps.modo.outputs.args }}
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          GROUP_CHAT_ID: ${{ secrets.GROUP_CHAT_ID }}
+          OWNER_CHAT_ID: ${{ secrets.OWNER_CHAT_ID }}
+
+      - name: Guardar estado
+        run: |
+          git config user.name "bot-escala-players"
+          git config user.email "actions@github.com"
+          git add state.json
+          git diff --cached --quiet || git commit -m "Actualiza estado"
+          git push
