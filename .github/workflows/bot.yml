@@ -53,6 +53,7 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           GROUP_CHAT_ID: ${{ secrets.GROUP_CHAT_ID }}
           OWNER_CHAT_ID: ${{ secrets.OWNER_CHAT_ID }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TELEGRAM_UPDATE_JSON: ${{ toJson(github.event.client_payload.update) }}
 
       - name: Guardar estado

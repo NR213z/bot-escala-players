@@ -6,6 +6,7 @@ Modos: webhook (un update de Telegram, vía repository_dispatch), remind hoy|man
 import html
 import json
 import os
+import re
 import sys
 from datetime import date, timedelta
 from zoneinfo import ZoneInfo
@@ -17,10 +18,27 @@ from parser import parse_cronograma, parse_escala_header, sin_acentos, MESES, re
 TOKEN = os.environ["TELEGRAM_TOKEN"]
 GROUP_CHAT_ID = os.environ.get("GROUP_CHAT_ID", "")
 OWNER_CHAT_ID = os.environ.get("OWNER_CHAT_ID", "")
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 BOT_USERNAME = "escala_players_bot"
 API = f"https://api.telegram.org/bot{TOKEN}"
+GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent"
 STATE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "state.json")
 TZ = ZoneInfo("America/Argentina/Buenos_Aires")
+
+PROMPT_SISTEMA = (
+    "Sos el bot de recordatorios de coberturas de 'Players' (un equipo que cubre un "
+    "programa llamado Algo Más). Hablás en español rioplatense, cercano, con onda, "
+    "breve (esto es un chat, no un ensayo). Tus únicas tres funciones reales son: "
+    "1) leer el cronograma mensual de coberturas y guardar las fechas de Players, "
+    "2) guardar la escala de nombres (con @menciones) de quién cubre cada fecha, "
+    "3) mandar recordatorios el día anterior y el mismo día de cada cobertura. "
+    "Para esas tres cosas, el mensaje tiene que venir en el formato fijo que ya "
+    "conocés (si alguien te pide anotar algo pero no vino en ese formato, explicale "
+    "que no lo reconociste y qué formato esperás). Para cualquier otra cosa que te "
+    "digan, charlá normal y con onda, pero dejando claro si hace falta que tus "
+    "poderes reales son solo esos tres. Nada de Markdown con asteriscos ni "
+    "almohadillas, Telegram no los re-interpreta: texto plano."
+)
 
 NOMBRES_MES = {v: k for k, v in MESES.items() if k != "setiembre"}
 
@@ -55,8 +73,10 @@ def api(method, **params):
     return r.json()
 
 
-def enviar(chat_id, texto, botones=None):
-    kwargs = {"chat_id": chat_id, "text": texto, "parse_mode": "HTML"}
+def enviar(chat_id, texto, botones=None, parse_mode="HTML"):
+    kwargs = {"chat_id": chat_id, "text": texto}
+    if parse_mode:
+        kwargs["parse_mode"] = parse_mode
     if botones:
         kwargs["reply_markup"] = {"inline_keyboard": botones}
     return api("sendMessage", **kwargs)
@@ -74,6 +94,38 @@ def es_respuesta_al_bot(msg):
     respondido = (msg or {}).get("reply_to_message") or {}
     autor = respondido.get("from") or {}
     return (autor.get("username") or "").lower() == BOT_USERNAME.lower()
+
+
+def limpiar_mencion(texto):
+    patron = re.compile(re.escape(f"@{BOT_USERNAME}"), re.IGNORECASE)
+    return patron.sub("", texto or "").strip()
+
+
+def preguntar_gemini(texto):
+    if not GEMINI_API_KEY:
+        return None
+    try:
+        r = requests.post(
+            GEMINI_URL,
+            params={"key": GEMINI_API_KEY},
+            json={
+                "system_instruction": {"parts": [{"text": PROMPT_SISTEMA}]},
+                "contents": [{"role": "user", "parts": [{"text": limpiar_mencion(texto) or "hola"}]}],
+            },
+            timeout=25,
+        )
+        r.raise_for_status()
+        data = r.json()
+        return data["candidates"][0]["content"]["parts"][0]["text"].strip()
+    except Exception as e:
+        print(f"[error] Gemini falló: {e}")
+        return None
+
+
+def charlar(chat_id, texto):
+    respuesta = preguntar_gemini(texto)
+    if respuesta:
+        enviar(chat_id, respuesta, parse_mode=None)
 
 
 def limpiar_pasadas(state):
@@ -219,8 +271,10 @@ def procesar_mensaje(state, msg):
         manejar_cronograma(state, texto)
     elif dia_esc is not None:
         manejar_escala_nombres(state, texto, dia_esc, mes_esc)
-    elif es_privado:
+    elif es_privado and texto.strip().startswith("/"):
         manejar_comando_privado(state, texto.strip(), chat_id)
+    else:
+        charlar(chat_id, texto)
 
 
 def manejar_callback(state, callback):

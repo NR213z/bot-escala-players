@@ -8,10 +8,16 @@ la notificación a los @mencionados.
 
 - Recordatorio el día anterior a las 18:00 (ART) y el mismo día a las 10:00 (ART).
 - El bot reacciona **al instante** (webhook de Telegram), no pollea. En el
-  grupo solo reacciona si lo mencionás con `@escala_players_bot`; por privado
-  (solo a `OWNER_CHAT_ID`) reacciona siempre.
+  grupo solo reacciona si lo mencionás con `@escala_players_bot` o le
+  respondés (reply) a uno de sus mensajes; por privado (solo a
+  `OWNER_CHAT_ID`) reacciona siempre.
 - Nada se guarda sin confirmación por privado (botones Sí/No).
-- Sin IA: los formatos son fijos, el parseo es con regex (`parser.py`).
+- Los tres formatos fijos (cronograma, escala con nombres, comandos) se
+  parsean con regex, sin IA — determinístico y gratis. Para cualquier otro
+  mensaje que le llegue (siempre dentro del mismo gate de @mención/privado),
+  charla con **Gemini Flash** (free tier de Google, sin tarjeta). Si Gemini
+  falla o no hay `GEMINI_API_KEY` cargada, el bot simplemente no contesta esa
+  parte — nunca rompe el resto del flujo.
 
 ## Cómo funciona
 
@@ -51,8 +57,10 @@ la notificación a los @mencionados.
 1. **Agregar el bot al grupo de coberturas** (a propósito no se hizo acá) y
    mandarle `/start` por privado.
 2. Secrets del repo: `TELEGRAM_TOKEN`, `GROUP_CHAT_ID`, `OWNER_CHAT_ID`,
-   `GITHUB_DISPATCH_TOKEN` (PAT de NR213z, permiso Actions: Read and write
-   sobre este repo — ajustar a Contents si el `repository_dispatch` lo pide).
+   `GITHUB_DISPATCH_TOKEN` (PAT de NR213z, permisos Actions: Read and write +
+   Contents: Read and write sobre este repo — el `repository_dispatch` pide
+   Contents, no alcanza con Actions solo), `GEMINI_API_KEY` (gratis, desde
+   [aistudio.google.com/apikey](https://aistudio.google.com/apikey)).
 3. Secret del Worker: `GITHUB_DISPATCH_TOKEN` (mismo valor) y
    `WEBHOOK_SECRET` (token random, ver abajo) — `cd worker && npx wrangler
    secret put NOMBRE`.
