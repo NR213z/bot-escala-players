@@ -1,54 +1,49 @@
 {
-  "offset": 225713103,
-  "eventos": [],
-  "pendiente": {
-    "mes_key": "2026-10",
-    "mes_nombre": "octubre",
-    "eventos": [
-      {
-        "anio": 2026,
-        "mes": 9,
-        "dia": 29,
-        "categoria": "A+"
-      },
-      {
-        "anio": 2026,
-        "mes": 10,
-        "dia": 3,
-        "categoria": "Canchas"
-      },
-      {
-        "anio": 2026,
-        "mes": 10,
-        "dia": 10,
-        "categoria": "EJ"
-      },
-      {
-        "anio": 2026,
-        "mes": 10,
-        "dia": 15,
-        "categoria": "HdlS"
-      },
-      {
-        "anio": 2026,
-        "mes": 10,
-        "dia": 20,
-        "categoria": "A+"
-      },
-      {
-        "anio": 2026,
-        "mes": 10,
-        "dia": 24,
-        "categoria": "Canchas"
-      },
-      {
-        "anio": 2026,
-        "mes": 10,
-        "dia": 31,
-        "categoria": "EJ"
-      }
-    ],
-    "tipo": "nuevo"
-  },
+  "offset": 225713104,
+  "eventos": [
+    {
+      "anio": 2026,
+      "mes": 9,
+      "dia": 29,
+      "categoria": "A+"
+    },
+    {
+      "anio": 2026,
+      "mes": 10,
+      "dia": 3,
+      "categoria": "Canchas"
+    },
+    {
+      "anio": 2026,
+      "mes": 10,
+      "dia": 10,
+      "categoria": "EJ"
+    },
+    {
+      "anio": 2026,
+      "mes": 10,
+      "dia": 15,
+      "categoria": "HdlS"
+    },
+    {
+      "anio": 2026,
+      "mes": 10,
+      "dia": 20,
+      "categoria": "A+"
+    },
+    {
+      "anio": 2026,
+      "mes": 10,
+      "dia": 24,
+      "categoria": "Canchas"
+    },
+    {
+      "anio": 2026,
+      "mes": 10,
+      "dia": 31,
+      "categoria": "EJ"
+    }
+  ],
+  "pendiente": null,
   "pendiente_limpiar": false
 }
