@@ -184,7 +184,10 @@ def modo_poll():
         if chat["type"] == "private":
             if not OWNER_CHAT_ID:
                 print(f"[info] mensaje privado recibido, OWNER_CHAT_ID todavía no configurado. chat_id={chat['id']}")
-            manejar_mensaje_privado(state, texto, chat["id"])
+            if str(chat["id"]) == str(OWNER_CHAT_ID) and "CRONOGRAMA DE COBERTURAS" in sin_acentos(texto).upper():
+                manejar_cronograma(state, texto)
+            else:
+                manejar_mensaje_privado(state, texto, chat["id"])
         else:
             if not GROUP_CHAT_ID:
                 print(f"[info] mensaje de grupo recibido, GROUP_CHAT_ID todavía no configurado. chat_id={chat['id']}")
