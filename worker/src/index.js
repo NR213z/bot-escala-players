@@ -49,7 +49,7 @@ async function dispatchUpdate(env, update) {
 
 function esRelevante(update) {
   if (update.callback_query) return true;
-  const msg = update.message;
+  const msg = update.message || update.edited_message;
   if (!msg) return false;
   if (msg.chat && msg.chat.type === "private") return true;
   const texto = (msg.text || msg.caption || "").toLowerCase();

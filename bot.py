@@ -316,7 +316,7 @@ def procesar_update(state, update):
     if "callback_query" in update:
         manejar_callback(state, update["callback_query"])
         return
-    msg = update.get("message")
+    msg = update.get("message") or update.get("edited_message")
     if not msg:
         return
     procesar_mensaje(state, msg)
