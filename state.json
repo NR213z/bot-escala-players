@@ -152,6 +152,14 @@
     {
       "role": "assistant",
       "content": "¡Entendido Pri! No haré el reel. ¡Dejá que el equipo desarrolle su creatividad!"
+    },
+    {
+      "role": "user",
+      "content": "🌸 • Pri: Perfecto. Lo entendisteee ☺️🙌"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Perfecto! ¡Acá estoy para lo que necesiten! 😄"
     }
   ],
   "pendiente_nombres": {
