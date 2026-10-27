@@ -29,6 +29,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Sin esto, checkout clona el commit vigente cuando LLEGÓ el evento,
+          # no cuando esta corrida arranca de verdad (después de esperar en la
+          # cola del concurrency). Si dos callbacks llegan muy seguidos (doble
+          # tap en un botón), la segunda corrida terminaba viendo un
+          # state.json viejo con la acción todavía pendiente y la repetía.
+          ref: main
 
       - uses: actions/setup-python@v5
         with:
