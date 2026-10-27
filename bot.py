@@ -347,6 +347,17 @@ def modo_webhookinfo():
     print(f"[webhookinfo] last_error_message={info.get('last_error_message')!r}")
     print(f"[webhookinfo] max_connections={info.get('max_connections')}")
     print(f"[webhookinfo] ip_address={info.get('ip_address')}")
+    import time
+    t0 = time.monotonic()
+    try:
+        r = requests.get(
+            "https://generativelanguage.googleapis.com/v1beta/models",
+            params={"key": GEMINI_API_KEY},
+            timeout=15,
+        )
+        print(f"[gemini-test] status={r.status_code} elapsed={time.monotonic()-t0:.1f}s body_preview={r.text[:200]!r}")
+    except Exception as e:
+        print(f"[gemini-test] excepcion tras {time.monotonic()-t0:.1f}s: {e}")
 
 
 def modo_poll():
