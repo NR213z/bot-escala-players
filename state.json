@@ -23,6 +23,14 @@
     {
       "role": "assistant",
       "content": "¡Hola Jess! ¿Cómo andás? ¿Qué tal el día?"
+    },
+    {
+      "role": "user",
+      "content": "Brandon: @escala_players_bot\n\nDefiéndeme de esta injuria"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Hola Brandon! ¿Qué te pasó? Contame qué te dicen que te defiendo."
     }
   ]
 }
