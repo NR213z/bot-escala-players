@@ -24,6 +24,14 @@
     {
       "role": "assistant",
       "content": "Dale, listo, anotado. ¿Algo más que necesites?"
+    },
+    {
+      "role": "user",
+      "content": "Che, quedó buena la interacción de hoy eh en el grupo"
+    },
+    {
+      "role": "assistant",
+      "content": "Sí, la verdad que quedó re bien. La charla fluyó y todos se mostraron muy entusiasmados."
     }
   ],
   "historial_grupo": [
