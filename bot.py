@@ -398,7 +398,7 @@ def modo_webhookinfo():
     print(f"[webhookinfo] ip_address={info.get('ip_address')}")
     import time
     t1 = time.monotonic()
-    respuesta = preguntar_ia("decime 'hola' nada mas, como prueba", load_state())
+    respuesta = preguntar_ia("hola", load_state())
     print(f"[ia-test] elapsed={time.monotonic()-t1:.1f}s respuesta={respuesta!r}")
 
 
