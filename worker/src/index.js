@@ -12,6 +12,7 @@ const BOT_USERNAME = "escala_players_bot";
 const MODO_POR_CRON = {
   "0 13 * * *": "remind-hoy", // 10:00 ART
   "0 21 * * *": "remind-manana", // 18:00 ART
+  "*/15 * * * *": "chequear-programados", // mensajes que el dueño programó por chat
 };
 
 async function dispatchWorkflow(env, modo) {

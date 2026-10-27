@@ -15,7 +15,7 @@ la notificación a los @mencionados.
 - Los tres formatos fijos (cronograma, escala con nombres, comandos) se
   parsean con regex, sin IA — determinístico y gratis. Para cualquier otro
   mensaje que le llegue (siempre dentro del mismo gate de @mención/privado),
-  charla con **Cloudflare Workers AI** (`@cf/meta/llama-3.1-8b-instruct-fp8`,
+  charla con **Cloudflare Workers AI** (`@cf/mistralai/mistral-small-3.1-24b-instruct`,
   free tier de Cloudflare — 10.000 "Neurons" por día, sin tarjeta, la misma
   cuenta donde ya corre el Worker). Si falla o no hay credenciales cargadas,
   el bot simplemente no contesta esa parte — nunca rompe el resto del flujo.
@@ -23,6 +23,10 @@ la notificación a los @mencionados.
   y se lo incluye como contexto en cada charla de ahí en más (no es
   aprendizaje real del modelo, es una lista de datos que vos le pasás). Ver
   `/memoria` y `/olvidar N` abajo.
+- También por privado podés pedirle que **actúe de verdad** en el grupo —
+  "mandale un buen día a los players y presentate" o "mañana a las 7 mandá la
+  escala" — y te va a pedir confirmación (Sí/No) antes de publicar nada.
+  Ver "Pedirle acciones" abajo.
 
 ## Cómo funciona
 
@@ -40,11 +44,14 @@ la notificación a los @mencionados.
      junto con el recordatorio de esa fecha.
    - Comandos (`/fechas`, `/borrar`, `/limpiar`) y las respuestas Sí/No a
      los botones, solo por privado.
-3. El mismo Worker dispara `remind-hoy` (10:00 ART) y `remind-manana` (18:00
-   ART) por Cron Trigger propio — esto sí es por horario, no por webhook.
-   `bot.py remind hoy|manana` compara las fechas registradas con la fecha de
-   hoy (zona `America/Argentina/Buenos_Aires`); si hay escala con nombres
-   guardada para esa fecha, la agrega al mensaje.
+3. El mismo Worker dispara `remind-hoy` (10:00 ART), `remind-manana` (18:00
+   ART) y `chequear-programados` (cada 15 min) por Cron Trigger propio — esto
+   sí es por horario, no por webhook. `bot.py remind hoy|manana` compara las
+   fechas registradas con la fecha de hoy (zona
+   `America/Argentina/Buenos_Aires`); si hay escala con nombres guardada para
+   esa fecha, la agrega al mensaje. `bot.py chequear-programados` manda los
+   mensajes que quedaron pendientes de "Pedirle acciones" (abajo) cuando ya
+   llegó su hora.
 4. El estado (`state.json`: fechas, escalas con nombres, confirmaciones
    pendientes) se commitea solo al final de cada corrida.
 5. `bot.py poll` (getUpdates) queda solo como respaldo manual de depuración —
@@ -60,6 +67,27 @@ la notificación a los @mencionados.
   cuenta cuando charla.
 - `/memoria` — lista todo lo que le enseñaste, numerado.
 - `/olvidar N` — borra la entrada número N de `/memoria`.
+
+## Pedirle acciones (solo por privado)
+
+Además de charlar, el bot puede publicar o programar un mensaje para el
+grupo cuando se lo pedís explícitamente por privado — por ejemplo "dale un
+buen día a los players y presentate" o "mañana a las 7 mandá la escala".
+Internamente: la IA detecta el pedido y arma el mensaje, te lo muestra con
+botones Sí/No antes de tocar el grupo (igual que el cronograma y la escala),
+y si confirmás:
+
+- **Ahora mismo** → lo publica al toque.
+- **Para más adelante** → lo guarda en `state.json` y el Worker lo manda en
+  la primera pasada de `chequear-programados` (cada 15 min) después de la
+  hora pedida.
+
+No es un agente con herramientas de verdad ni aprendizaje real — es un
+prompt que le pide a la IA que, cuando corresponda, agregue una línea
+`ACCION: {...}` al final de su respuesta con el mensaje a publicar; el
+código la detecta, se la saca de lo que te muestra, y arma la confirmación.
+Por eso siempre hay un paso de Sí/No antes de publicar: un error de
+interpretación de la IA no llega al grupo sin que lo veas antes.
 
 ## Setup
 

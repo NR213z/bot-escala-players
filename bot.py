@@ -8,7 +8,7 @@ import json
 import os
 import re
 import sys
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 from zoneinfo import ZoneInfo
 
 import requests
@@ -47,22 +47,45 @@ PROMPT_SISTEMA = (
 )
 
 
-def prompt_sistema_con_memoria(state):
+PROMPT_ACCIONES = (
+    "\n\nAdemás de charlar, en este chat privado con Nicolás podés ACTUAR de "
+    "verdad: publicar un mensaje en el grupo de Players ahora mismo, o "
+    "programarlo para una fecha y hora futura. Hoy es {hoy}. Si Nicolás te "
+    "pide explícitamente que publiques, avises, mandes, saludes o programes "
+    "algo PARA EL GRUPO, hacé dos cosas: 1) contestale normal, breve, "
+    "confirmando qué vas a hacer; 2) al final de tu respuesta, en una línea "
+    "aparte, agregá EXACTAMENTE (nada más en esa línea, JSON válido en una "
+    "sola línea): ACCION: {{\"tipo\":\"publicar\",\"mensaje\":\"<el texto "
+    "final a publicar, redactado por vos, tono Players, texto plano>\"}} — o "
+    "si te pidió algo para más adelante: ACCION: "
+    "{{\"tipo\":\"programar\",\"fecha\":\"DD/MM\",\"hora\":\"HH:MM\","
+    "\"mensaje\":\"...\"}}. Si NO te pidió nada para el grupo, charlá nomás y "
+    "NO agregues ninguna línea ACCION."
+)
+
+
+def prompt_sistema_con_memoria(state, permitir_acciones=False):
     memoria = state.get("memoria", [])
-    if not memoria:
-        return PROMPT_SISTEMA
-    enseniado = "\n".join(f"- {m}" for m in memoria)
-    return (
-        f"{PROMPT_SISTEMA}\n\nAdemás, Nicolás (tu dueño) te enseñó estas cosas en "
-        f"charlas anteriores, tenelas en cuenta si vienen al caso:\n{enseniado}"
-    )
+    prompt = PROMPT_SISTEMA
+    if memoria:
+        enseniado = "\n".join(f"- {m}" for m in memoria)
+        prompt += (
+            f"\n\nAdemás, Nicolás (tu dueño) te enseñó estas cosas en charlas "
+            f"anteriores, tenelas en cuenta si vienen al caso:\n{enseniado}"
+        )
+    if permitir_acciones:
+        prompt += PROMPT_ACCIONES.format(hoy=ahora().strftime("%d/%m/%Y"))
+    return prompt
 
 NOMBRES_MES = {v: k for k, v in MESES.items() if k != "setiembre"}
 
 
 def ahora():
-    from datetime import datetime
     return datetime.now(TZ).date()
+
+
+def ahora_dt():
+    return datetime.now(TZ)
 
 
 def load_state():
@@ -70,15 +93,19 @@ def load_state():
         with open(STATE_FILE, "r", encoding="utf-8") as f:
             state = json.load(f)
         state.setdefault("memoria", [])
+        state.setdefault("programados", [])
+        state.setdefault("pendiente_accion", None)
         return state
     return {
         "offset": 0,
         "eventos": [],
         "nombres": {},
         "memoria": [],
+        "programados": [],
         "pendiente": None,
         "pendiente_nombres": None,
         "pendiente_limpiar": False,
+        "pendiente_accion": None,
     }
 
 
@@ -121,13 +148,13 @@ def limpiar_mencion(texto):
     return patron.sub("", texto or "").strip()
 
 
-def preguntar_ia(texto, state):
+def preguntar_ia(texto, state, permitir_acciones=False):
     if not CLOUDFLARE_ACCOUNT_ID or not CLOUDFLARE_API_TOKEN:
         return None
     import time as _time
     cuerpo = {
         "messages": [
-            {"role": "system", "content": prompt_sistema_con_memoria(state)},
+            {"role": "system", "content": prompt_sistema_con_memoria(state, permitir_acciones)},
             {"role": "user", "content": limpiar_mencion(texto) or "hola"},
         ]
     }
@@ -149,10 +176,40 @@ def preguntar_ia(texto, state):
     return None
 
 
-def charlar(chat_id, texto, state):
-    respuesta = preguntar_ia(texto, state)
-    if respuesta:
-        enviar(chat_id, respuesta, parse_mode=None)
+def extraer_accion(respuesta):
+    if "ACCION:" not in respuesta:
+        return respuesta, None
+    visible, bruto = respuesta.split("ACCION:", 1)
+    visible = visible.strip()
+    try:
+        accion = json.loads(bruto.strip())
+    except Exception:
+        return visible, None
+    if accion.get("tipo") not in ("publicar", "programar") or not accion.get("mensaje"):
+        return visible, None
+    return visible, accion
+
+
+def charlar(chat_id, texto, state, permitir_acciones=False):
+    respuesta = preguntar_ia(texto, state, permitir_acciones)
+    if not respuesta:
+        return
+    visible, accion = extraer_accion(respuesta) if permitir_acciones else (respuesta, None)
+    if visible:
+        enviar(chat_id, visible, parse_mode=None)
+    if accion:
+        state["pendiente_accion"] = accion
+        if accion["tipo"] == "publicar":
+            preview = f"👉 ¿Publico esto en el grupo ahora? 📣\n\n«{escapar(accion['mensaje'])}»"
+        else:
+            preview = (
+                f"👉 ¿Programo esto para el <b>{escapar(accion.get('fecha', '?'))}</b> "
+                f"a las <b>{escapar(accion.get('hora', '?'))}</b>? ⏰\n\n«{escapar(accion['mensaje'])}»"
+            )
+        enviar(chat_id, preview, botones=[[
+            {"text": "✅ Sí", "callback_data": "accion_si"},
+            {"text": "❌ No", "callback_data": "accion_no"},
+        ]])
 
 
 def limpiar_pasadas(state):
@@ -323,7 +380,7 @@ def procesar_mensaje(state, msg):
     elif es_privado and texto.strip().startswith("/"):
         manejar_comando_privado(state, texto.strip(), chat_id)
     else:
-        charlar(chat_id, texto, state)
+        charlar(chat_id, texto, state, permitir_acciones=es_privado)
 
 
 def manejar_callback(state, callback):
@@ -358,6 +415,38 @@ def manejar_callback(state, callback):
     elif data == "limpiar_no":
         state["pendiente_limpiar"] = False
         enviar(chat_id, "👍 No borré nada.")
+    elif data == "accion_si" and state.get("pendiente_accion"):
+        accion = state["pendiente_accion"]
+        state["pendiente_accion"] = None
+        mensaje = accion["mensaje"]
+        if accion["tipo"] == "publicar":
+            if GROUP_CHAT_ID:
+                enviar(GROUP_CHAT_ID, escapar(mensaje))
+                enviar(chat_id, "✅ Publicado en el grupo.")
+            else:
+                enviar(chat_id, "⚠️ Todavía no tengo el GROUP_CHAT_ID configurado.")
+        else:
+            cuando = None
+            try:
+                dia_s, mes_s = accion.get("fecha", "").split("/", 1)
+                hh, mm = accion.get("hora", "09:00").split(":", 1)
+                dia_p, mes_p = int(dia_s), int(mes_s)
+                anio_p = resolver_anio(mes_p, ahora().month, ahora().year)
+                cuando = datetime(anio_p, mes_p, dia_p, int(hh), int(mm), tzinfo=TZ)
+            except Exception:
+                cuando = None
+            if cuando is None:
+                enviar(chat_id, "⚠️ No entendí bien la fecha/hora, pedímelo de nuevo.")
+            else:
+                state.setdefault("programados", []).append({
+                    "mensaje": mensaje,
+                    "cuando": cuando.isoformat(),
+                    "enviado": False,
+                })
+                enviar(chat_id, f"✅ Programado para el {cuando.strftime('%d/%m a las %H:%M')}.")
+    elif data == "accion_no":
+        state["pendiente_accion"] = None
+        enviar(chat_id, "🗑️ Descartado, no hice nada.")
     api("answerCallbackQuery", callback_query_id=callback["id"])
 
 
@@ -397,9 +486,27 @@ def modo_webhookinfo():
     print(f"[webhookinfo] max_connections={info.get('max_connections')}")
     print(f"[webhookinfo] ip_address={info.get('ip_address')}")
     import time
-    t1 = time.monotonic()
-    respuesta = preguntar_ia("hola", load_state())
-    print(f"[ia-test] elapsed={time.monotonic()-t1:.1f}s respuesta={respuesta!r}")
+    state = load_state()
+    for msg in ["hola", "mañana a las 7 mandá la escala", "dale un buen dia a los players y presentate"]:
+        t1 = time.monotonic()
+        respuesta = preguntar_ia(msg, state, permitir_acciones=True)
+        visible, accion = extraer_accion(respuesta) if respuesta else (respuesta, None)
+        print(f"[ia-test] ({time.monotonic()-t1:.1f}s) {msg!r} -> visible={visible!r} accion={accion!r}")
+
+
+def modo_chequear_programados():
+    """Manda los mensajes que quedaron programados por /ACCION cuando ya llegó su hora."""
+    state = load_state()
+    ahora_actual = ahora_dt()
+    pendientes = [
+        p for p in state.get("programados", [])
+        if not p.get("enviado") and datetime.fromisoformat(p["cuando"]) <= ahora_actual
+    ]
+    for p in pendientes:
+        if GROUP_CHAT_ID:
+            enviar(GROUP_CHAT_ID, escapar(p["mensaje"]))
+        p["enviado"] = True
+    save_state(state)
 
 
 def modo_poll():
@@ -450,6 +557,8 @@ def main():
     elif modo == "remind":
         momento = sys.argv[2] if len(sys.argv) > 2 else "hoy"
         modo_remind(momento)
+    elif modo == "chequear-programados":
+        modo_chequear_programados()
     else:
         print(f"Modo desconocido: {modo}")
         sys.exit(1)
