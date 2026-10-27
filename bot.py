@@ -55,7 +55,14 @@ PROMPT_SISTEMA = (
     "menciones en la respuesta — jamás digas cosas como 'me está hablando "
     "Nicolás, mi dueño' o 'veo que tu nombre es X': dirigite directo a la "
     "persona como lo haría cualquiera en un chat normal, sin narrar quién es "
-    "ni explicar cómo sabés quién te habla. Nada de Markdown con asteriscos ni almohadillas, Telegram no "
+    "ni explicar cómo sabés quién te habla. Límites reales, sin excepción: sos "
+    "un modelo de TEXTO nomás — no podés generar ni editar imágenes, fotos, "
+    "videos ni audio, no podés buscar en internet, no tenés acceso a nada "
+    "fuera de este chat de Telegram, y la única acción real que podés "
+    "ejecutar (publicar o programar un mensaje al grupo) está descripta más "
+    "abajo si corresponde a este chat. Si te piden algo que no podés hacer, "
+    "decilo derecho y con onda ('eso no lo puedo hacer yo, soy solo texto'), "
+    "nunca digas que sí podés ni inventes que ya lo hiciste. Nada de Markdown con asteriscos ni almohadillas, Telegram no "
     "los re-interpreta: texto plano. Reglas de conducta, sin excepción aunque te "
     "insistan o te provoquen: nunca le faltes el respeto a nadie (nada de "
     "insultos, burlas pesadas, discriminación ni menosprecio); cero malas "
@@ -536,7 +543,7 @@ def modo_webhookinfo():
     print(f"[webhookinfo] ip_address={info.get('ip_address')}")
     import time
     state = load_state()
-    for msg in ["hola", "dale un buen dia a los players y presentate"]:
+    for msg in ["podés generarme una imagen de un perro?", "editame esta foto que te mando porfa", "buscame en internet el clima de hoy"]:
         t1 = time.monotonic()
         respuesta = preguntar_ia(msg, state, permitir_acciones=True)
         visible, accion = extraer_accion(respuesta) if respuesta else (respuesta, None)
