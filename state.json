@@ -10,5 +10,6 @@
   ],
   "pendiente": null,
   "pendiente_limpiar": false,
-  "nombres": {}
+  "nombres": {},
+  "memoria": []
 }
