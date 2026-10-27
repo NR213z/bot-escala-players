@@ -552,24 +552,6 @@ def modo_webhookinfo():
     print(f"[webhookinfo] ip_address={info.get('ip_address')}")
     import time
     state = load_state()
-    print("[tono-accion-test] simulando corrección de tono en un borrador de recordatorio...")
-    r1 = preguntar_ia(
-        "mandá un recordatorio mañana a las 7 avisando que es la cobertura de hoy de Players",
-        state, permitir_acciones=True,
-    )
-    v1, a1 = extraer_accion(r1) if r1 else (r1, None)
-    print(f"[tono-accion-test] borrador 1: {v1!r} accion={a1!r}")
-    historial_tono = [
-        {"role": "user", "content": "mandá un recordatorio mañana a las 7 avisando que es la cobertura de hoy de Players"},
-        {"role": "assistant", "content": v1 or ""},
-    ]
-    r2 = preguntar_ia(
-        "y entende una cosa, no es 'es tuyo', es 'es nuestro', acordate que somos equipo",
-        state, permitir_acciones=True, historial=historial_tono,
-    )
-    v2, a2 = extraer_accion(r2) if r2 else (r2, None)
-    print(f"[tono-accion-test] borrador 2 (tras corrección): {v2!r} accion={a2!r}")
-
     for msg in ["hola", "dale un buen dia a los players y presentate"]:
         t1 = time.monotonic()
         respuesta = preguntar_ia(msg, state, permitir_acciones=True)
