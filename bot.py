@@ -355,7 +355,8 @@ def modo_webhookinfo():
             params={"key": GEMINI_API_KEY},
             timeout=15,
         )
-        print(f"[gemini-test] status={r.status_code} elapsed={time.monotonic()-t0:.1f}s body_preview={r.text[:200]!r}")
+        nombres = [m.get("name") for m in r.json().get("models", []) if "generateContent" in (m.get("supportedGenerationMethods") or [])]
+        print(f"[gemini-test] status={r.status_code} elapsed={time.monotonic()-t0:.1f}s modelos_generateContent={nombres}")
     except Exception as e:
         print(f"[gemini-test] excepcion tras {time.monotonic()-t0:.1f}s: {e}")
 
