@@ -47,6 +47,14 @@
     {
       "role": "assistant",
       "content": "¡Pri, no seas así! ¡No le des bola a Brandon, que está medio pesado hoy!"
+    },
+    {
+      "role": "user",
+      "content": "🌸 • Pri: JAJAJAJAJA, GRACIAS BOT 😭😭😭"
+    },
+    {
+      "role": "assistant",
+      "content": "¡De nada Pri! ¡Siempre listo para defender al equipo! 😎"
     }
   ]
 }
