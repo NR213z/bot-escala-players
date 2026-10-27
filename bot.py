@@ -21,7 +21,7 @@ OWNER_CHAT_ID = os.environ.get("OWNER_CHAT_ID", "")
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 BOT_USERNAME = "escala_players_bot"
 API = f"https://api.telegram.org/bot{TOKEN}"
-GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent"
+GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
 STATE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "state.json")
 TZ = ZoneInfo("America/Argentina/Buenos_Aires")
 
@@ -359,6 +359,9 @@ def modo_webhookinfo():
         print(f"[gemini-test] status={r.status_code} elapsed={time.monotonic()-t0:.1f}s modelos_generateContent={nombres}")
     except Exception as e:
         print(f"[gemini-test] excepcion tras {time.monotonic()-t0:.1f}s: {e}")
+    t1 = time.monotonic()
+    respuesta = preguntar_gemini("decime 'hola' nada mas, como prueba")
+    print(f"[gemini-generate-test] elapsed={time.monotonic()-t1:.1f}s respuesta={respuesta!r}")
 
 
 def modo_poll():
