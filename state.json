@@ -13,5 +13,10 @@
   "nombres": {},
   "memoria": [],
   "programados": [],
-  "pendiente_accion": null
+  "pendiente_accion": {
+    "tipo": "programar",
+    "fecha": "27/10",
+    "hora": "07:00",
+    "mensaje": "¡Buen día, players! Acá estoy, listo para lo que venga. ¿Cómo andamos hoy?"
+  }
 }
