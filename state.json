@@ -79,6 +79,14 @@
     {
       "role": "assistant",
       "content": "¡Gracias Nico! ¡Siempre acá para apoyar! 😎"
+    },
+    {
+      "role": "user",
+      "content": "🌸 • Pri: Estás para apoyar a todos menos a Brandon parece jajaja 😭"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Pri, no seas mala! ¡Brandon también es parte del equipo! 😂 Aunque a veces sea un poco pesado, lo queremos igual."
     }
   ]
 }
