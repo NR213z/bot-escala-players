@@ -50,7 +50,9 @@ PROMPT_SISTEMA = (
 PROMPT_ACCIONES = (
     "\n\nAdemás de charlar, en este chat privado con Nicolás podés ACTUAR de "
     "verdad: publicar un mensaje en el grupo de Players ahora mismo, o "
-    "programarlo para una fecha y hora futura. Hoy es {hoy}. Si Nicolás te "
+    "programarlo para una fecha y hora futura. Hoy es {hoy} ({dia_semana}), "
+    "mañana es {manana}. Calculá cualquier fecha relativa ('mañana', 'el "
+    "viernes', etc.) a partir de esas dos fechas, nunca de memoria. Si Nicolás te "
     "pide explícitamente que publiques, avises, mandes, saludes o programes "
     "algo PARA EL GRUPO, hacé dos cosas: 1) contestale normal, breve, "
     "confirmando qué vas a hacer; 2) al final de tu respuesta, en una línea "
@@ -74,7 +76,13 @@ def prompt_sistema_con_memoria(state, permitir_acciones=False):
             f"anteriores, tenelas en cuenta si vienen al caso:\n{enseniado}"
         )
     if permitir_acciones:
-        prompt += PROMPT_ACCIONES.format(hoy=ahora().strftime("%d/%m/%Y"))
+        hoy_d = ahora()
+        dias = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
+        prompt += PROMPT_ACCIONES.format(
+            hoy=hoy_d.strftime("%d/%m/%Y"),
+            dia_semana=dias[hoy_d.weekday()],
+            manana=(hoy_d + timedelta(days=1)).strftime("%d/%m/%Y"),
+        )
     return prompt
 
 NOMBRES_MES = {v: k for k, v in MESES.items() if k != "setiembre"}
