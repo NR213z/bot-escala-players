@@ -15,9 +15,14 @@ la notificación a los @mencionados.
 - Los tres formatos fijos (cronograma, escala con nombres, comandos) se
   parsean con regex, sin IA — determinístico y gratis. Para cualquier otro
   mensaje que le llegue (siempre dentro del mismo gate de @mención/privado),
-  charla con **Gemini Flash** (free tier de Google, sin tarjeta). Si Gemini
-  falla o no hay `GEMINI_API_KEY` cargada, el bot simplemente no contesta esa
-  parte — nunca rompe el resto del flujo.
+  charla con **Cloudflare Workers AI** (`@cf/meta/llama-3.1-8b-instruct-fp8`,
+  free tier de Cloudflare — 10.000 "Neurons" por día, sin tarjeta, la misma
+  cuenta donde ya corre el Worker). Si falla o no hay credenciales cargadas,
+  el bot simplemente no contesta esa parte — nunca rompe el resto del flujo.
+- Por privado podés **enseñarle cosas** con `/enseñar <algo>`: queda guardado
+  y se lo incluye como contexto en cada charla de ahí en más (no es
+  aprendizaje real del modelo, es una lista de datos que vos le pasás). Ver
+  `/memoria` y `/olvidar N` abajo.
 
 ## Cómo funciona
 
@@ -51,6 +56,10 @@ la notificación a los @mencionados.
 - `/fechas` — lista las coberturas de Players registradas.
 - `/borrar DD/MM` — saca una fecha puntual.
 - `/limpiar` — borra todo (pide confirmación Sí/No antes).
+- `/enseñar <algo>` — le agrega ese dato a la memoria, para que lo tenga en
+  cuenta cuando charla.
+- `/memoria` — lista todo lo que le enseñaste, numerado.
+- `/olvidar N` — borra la entrada número N de `/memoria`.
 
 ## Setup
 
@@ -59,8 +68,10 @@ la notificación a los @mencionados.
 2. Secrets del repo: `TELEGRAM_TOKEN`, `GROUP_CHAT_ID`, `OWNER_CHAT_ID`,
    `GITHUB_DISPATCH_TOKEN` (PAT de NR213z, permisos Actions: Read and write +
    Contents: Read and write sobre este repo — el `repository_dispatch` pide
-   Contents, no alcanza con Actions solo), `GEMINI_API_KEY` (gratis, desde
-   [aistudio.google.com/apikey](https://aistudio.google.com/apikey)).
+   Contents, no alcanza con Actions solo), `CLOUDFLARE_ACCOUNT_ID` y
+   `CLOUDFLARE_API_TOKEN` (token con permiso "Workers AI", creado en
+   [dash.cloudflare.com/profile/api-tokens](https://dash.cloudflare.com/profile/api-tokens)
+   — misma cuenta que el Worker, gratis).
 3. Secret del Worker: `GITHUB_DISPATCH_TOKEN` (mismo valor) y
    `WEBHOOK_SECRET` (token random, ver abajo) — `cd worker && npx wrangler
    secret put NOMBRE`.

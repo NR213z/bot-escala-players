@@ -18,10 +18,12 @@ from parser import parse_cronograma, parse_escala_header, sin_acentos, MESES, re
 TOKEN = os.environ["TELEGRAM_TOKEN"]
 GROUP_CHAT_ID = os.environ.get("GROUP_CHAT_ID", "")
 OWNER_CHAT_ID = os.environ.get("OWNER_CHAT_ID", "")
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
+CLOUDFLARE_ACCOUNT_ID = os.environ.get("CLOUDFLARE_ACCOUNT_ID", "")
+CLOUDFLARE_API_TOKEN = os.environ.get("CLOUDFLARE_API_TOKEN", "")
 BOT_USERNAME = "escala_players_bot"
 API = f"https://api.telegram.org/bot{TOKEN}"
-GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent"
+IA_MODELO = "@cf/meta/llama-3.1-8b-instruct-fp8"
+IA_URL = f"https://api.cloudflare.com/client/v4/accounts/{CLOUDFLARE_ACCOUNT_ID}/ai/run/{IA_MODELO}"
 STATE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "state.json")
 TZ = ZoneInfo("America/Argentina/Buenos_Aires")
 
@@ -40,6 +42,17 @@ PROMPT_SISTEMA = (
     "almohadillas, Telegram no los re-interpreta: texto plano."
 )
 
+
+def prompt_sistema_con_memoria(state):
+    memoria = state.get("memoria", [])
+    if not memoria:
+        return PROMPT_SISTEMA
+    enseniado = "\n".join(f"- {m}" for m in memoria)
+    return (
+        f"{PROMPT_SISTEMA}\n\nAdemás, Nicolás (tu dueño) te enseñó estas cosas en "
+        f"charlas anteriores, tenelas en cuenta si vienen al caso:\n{enseniado}"
+    )
+
 NOMBRES_MES = {v: k for k, v in MESES.items() if k != "setiembre"}
 
 
@@ -51,11 +64,14 @@ def ahora():
 def load_state():
     if os.path.exists(STATE_FILE):
         with open(STATE_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
+            state = json.load(f)
+        state.setdefault("memoria", [])
+        return state
     return {
         "offset": 0,
         "eventos": [],
         "nombres": {},
+        "memoria": [],
         "pendiente": None,
         "pendiente_nombres": None,
         "pendiente_limpiar": False,
@@ -101,31 +117,36 @@ def limpiar_mencion(texto):
     return patron.sub("", texto or "").strip()
 
 
-def preguntar_gemini(texto):
-    if not GEMINI_API_KEY:
+def preguntar_ia(texto, state):
+    if not CLOUDFLARE_ACCOUNT_ID or not CLOUDFLARE_API_TOKEN:
         return None
     import time as _time
     cuerpo = {
-        "system_instruction": {"parts": [{"text": PROMPT_SISTEMA}]},
-        "contents": [{"role": "user", "parts": [{"text": limpiar_mencion(texto) or "hola"}]}],
+        "messages": [
+            {"role": "system", "content": prompt_sistema_con_memoria(state)},
+            {"role": "user", "content": limpiar_mencion(texto) or "hola"},
+        ]
     }
-    # El free tier de Gemini devuelve 503 (sobrecarga) con cierta frecuencia:
-    # un reintento rápido alcanza para la mayoría de los casos.
+    headers = {"Authorization": f"Bearer {CLOUDFLARE_API_TOKEN}"}
+    # Workers AI puede devolver error transitorio bajo carga: un reintento
+    # rápido alcanza para la mayoría de los casos.
     for intento in range(2):
         try:
-            r = requests.post(GEMINI_URL, params={"key": GEMINI_API_KEY}, json=cuerpo, timeout=25)
+            r = requests.post(IA_URL, headers=headers, json=cuerpo, timeout=25)
             r.raise_for_status()
             data = r.json()
-            return data["candidates"][0]["content"]["parts"][0]["text"].strip()
+            if not data.get("success"):
+                raise RuntimeError(data.get("errors"))
+            return data["result"]["response"].strip()
         except Exception as e:
-            print(f"[error] Gemini falló (intento {intento + 1}): {e}")
+            print(f"[error] Workers AI falló (intento {intento + 1}): {e}")
             if intento == 0:
                 _time.sleep(2)
     return None
 
 
-def charlar(chat_id, texto):
-    respuesta = preguntar_gemini(texto)
+def charlar(chat_id, texto, state):
+    respuesta = preguntar_ia(texto, state)
     if respuesta:
         enviar(chat_id, respuesta, parse_mode=None)
 
@@ -247,6 +268,28 @@ def manejar_comando_privado(state, texto, chat_id):
                 {"text": "❌ No", "callback_data": "limpiar_no"},
             ]],
         )
+    elif sin_acentos(texto).lower().startswith("/ensenar"):
+        dato = texto.split(None, 1)[1].strip() if len(texto.split(None, 1)) > 1 else ""
+        if not dato:
+            enviar(chat_id, "⚠️ Usá <code>/enseñar lo que quieras que recuerde</code>.")
+            return
+        state.setdefault("memoria", []).append(dato)
+        enviar(chat_id, f"🧠 Anotado, me lo acuerdo de ahora en más:\n\n«{escapar(dato)}»")
+    elif sin_acentos(texto).lower() == "/memoria":
+        memoria = state.get("memoria", [])
+        if not memoria:
+            enviar(chat_id, "🤷 Todavía no me enseñaste nada.")
+        else:
+            lista = "\n".join(f"{i + 1}. {escapar(m)}" for i, m in enumerate(memoria))
+            enviar(chat_id, f"🧠 <b>Lo que me enseñaste</b>\n\n{lista}\n\nPara borrar algo: <code>/olvidar N</code>")
+    elif sin_acentos(texto).lower().startswith("/olvidar"):
+        partes = texto.split()
+        memoria = state.get("memoria", [])
+        if len(partes) != 2 or not partes[1].isdigit() or not (1 <= int(partes[1]) <= len(memoria)):
+            enviar(chat_id, "⚠️ Usá <code>/olvidar N</code> con el número que te mostró <code>/memoria</code>.")
+            return
+        borrado = memoria.pop(int(partes[1]) - 1)
+        enviar(chat_id, f"🗑️ Me olvidé de: «{escapar(borrado)}»")
 
 
 def procesar_mensaje(state, msg):
@@ -276,7 +319,7 @@ def procesar_mensaje(state, msg):
     elif es_privado and texto.strip().startswith("/"):
         manejar_comando_privado(state, texto.strip(), chat_id)
     else:
-        charlar(chat_id, texto)
+        charlar(chat_id, texto, state)
 
 
 def manejar_callback(state, callback):
@@ -350,20 +393,9 @@ def modo_webhookinfo():
     print(f"[webhookinfo] max_connections={info.get('max_connections')}")
     print(f"[webhookinfo] ip_address={info.get('ip_address')}")
     import time
-    t0 = time.monotonic()
-    try:
-        r = requests.get(
-            "https://generativelanguage.googleapis.com/v1beta/models",
-            params={"key": GEMINI_API_KEY},
-            timeout=15,
-        )
-        nombres = [m.get("name") for m in r.json().get("models", []) if "generateContent" in (m.get("supportedGenerationMethods") or [])]
-        print(f"[gemini-test] status={r.status_code} elapsed={time.monotonic()-t0:.1f}s modelos_generateContent={nombres}")
-    except Exception as e:
-        print(f"[gemini-test] excepcion tras {time.monotonic()-t0:.1f}s: {e}")
     t1 = time.monotonic()
-    respuesta = preguntar_gemini("decime 'hola' nada mas, como prueba")
-    print(f"[gemini-generate-test] elapsed={time.monotonic()-t1:.1f}s respuesta={respuesta!r}")
+    respuesta = preguntar_ia("decime 'hola' nada mas, como prueba", load_state())
+    print(f"[ia-test] elapsed={time.monotonic()-t1:.1f}s respuesta={respuesta!r}")
 
 
 def modo_poll():
