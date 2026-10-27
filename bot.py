@@ -619,7 +619,8 @@ def modo_remind(momento):
     if pendientes and GROUP_CHAT_ID:
         categorias = " y ".join(f"<b>{e['categoria']}</b>" for e in pendientes)
         cuando = "🔔 <b>Hoy</b>" if momento == "hoy" else "⏰ <b>Mañana</b>"
-        mensaje = f"{cuando} Players cubre {categorias} 📣"
+        saludo = "¡Buen día, Players! Dios los bendiga 🙏" if momento == "hoy" else "¡Buenas tardes, Players! 🙌"
+        mensaje = f"{saludo}\n\n{cuando} Players cubre {categorias} 📣"
         key = f"{objetivo.year}-{objetivo.month:02d}-{objetivo.day:02d}"
         nombres_texto = state.get("nombres", {}).get(key)
         if nombres_texto:
