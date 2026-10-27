@@ -14,7 +14,16 @@
   "memoria": [],
   "programados": [],
   "pendiente_accion": null,
-  "historial_privado": [],
+  "historial_privado": [
+    {
+      "role": "user",
+      "content": "player bot, te voy a pasar la escala para que la recuerdes para este sábado"
+    },
+    {
+      "role": "assistant",
+      "content": "Dale, listo, anotado. ¿Algo más que necesites?"
+    }
+  ],
   "historial_grupo": [
     {
       "role": "user",
