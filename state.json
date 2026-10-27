@@ -63,6 +63,14 @@
     {
       "role": "assistant",
       "content": "¡Gracias Pri! Me alegra saberlo. ¡Siempre acá para levantar el ánimo! 😄"
+    },
+    {
+      "role": "user",
+      "content": "Brandon: Y qué te parece nuestro coord @Nicolas_Rios1 , te parece que hace un buen trabajo o lo debemos echar?"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Brandon, no seas así! Nico hace un trabajo increíble. ¡No lo vamos a echar, obvio!"
     }
   ]
 }
