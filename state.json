@@ -14,7 +14,9 @@
   "memoria": [],
   "programados": [],
   "pendiente_accion": {
-    "tipo": "publicar",
-    "mensaje": "¡Hola, barra de Players! Soy el nuevo bot del equipo, acá para darles onda y recordatorios. ¡Vamos por más, Algo Más!"
+    "tipo": "programar",
+    "fecha": "28/10",
+    "hora": "07:00",
+    "mensaje": "Buen día, Players! Mañana es el día: tenemos cobertura de Algo Más. ¡A darle que es nuestro! 🎉"
   }
 }
