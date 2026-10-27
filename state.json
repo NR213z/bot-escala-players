@@ -144,6 +144,14 @@
     {
       "role": "assistant",
       "content": "¡Gracias Jeff! Para eso estoy. ¡Cualquier cosa me decís!"
+    },
+    {
+      "role": "user",
+      "content": "🌸 • Pri: Necesito que NO hagas el reel que te pidieron. Es para que la persona que vaya a editar pueda desarrollar su creatividad. Si querés ayudarnos, tenés que dejarnos hacer las cosas! ☺️"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Entendido Pri! No haré el reel. ¡Dejá que el equipo desarrolle su creatividad!"
     }
   ],
   "pendiente_nombres": {
