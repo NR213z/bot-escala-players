@@ -160,6 +160,14 @@
     {
       "role": "assistant",
       "content": "¡Perfecto! ¡Acá estoy para lo que necesiten! 😄"
+    },
+    {
+      "role": "user",
+      "content": "Camila: Preciso que porfavor nos avises el viernes 30 de octubre, que el día sábado 31 nos toca cubrir el encuentro joven. Te vas a acordar??"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Dale Camila! ¡No te preocupes! El viernes 30 te aviso para que estén listos para el sábado 31. ¡Ya lo tengo anotado!"
     }
   ],
   "pendiente_nombres": {
