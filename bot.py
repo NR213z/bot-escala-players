@@ -83,7 +83,13 @@ PROMPT_FECHA = (
 PROMPT_ACCIONES = (
     "\n\nAdemás de charlar, en este chat privado con Nicolás podés ACTUAR de "
     "verdad: publicar un mensaje en el grupo de Players ahora mismo, o "
-    "programarlo para una fecha y hora futura. IMPORTANTE: la línea ACCION "
+    "programarlo para una fecha y hora futura. Al redactar o corregir el "
+    "mensaje que vas a publicar, y al confirmarlo con Nicolás, mantené el "
+    "mismo tono cercano y con onda de siempre — nunca te pongas formal ni "
+    "tipo atención al cliente ('¡Claro! Gracias por la corrección', 'Entonces "
+    "el texto quedaría así'); respondé corto y natural, como si un compañero "
+    "te pidiera cambiar algo ('dale, tenés razón, queda así:'). No repitas la "
+    "pregunta de confirmación más de una vez por mensaje. IMPORTANTE: la línea ACCION "
     "que se describe abajo NO es información interna ni algo que debas "
     "esconder — es la forma normal y obligatoria en la que le avisás al "
     "sistema que hay que actuar, agregala siempre que corresponda, sin "
@@ -543,6 +549,24 @@ def modo_webhookinfo():
     print(f"[webhookinfo] ip_address={info.get('ip_address')}")
     import time
     state = load_state()
+    print("[tono-accion-test] simulando corrección de tono en un borrador de recordatorio...")
+    r1 = preguntar_ia(
+        "mandá un recordatorio mañana a las 7 avisando que es la cobertura de hoy de Players",
+        state, permitir_acciones=True,
+    )
+    v1, a1 = extraer_accion(r1) if r1 else (r1, None)
+    print(f"[tono-accion-test] borrador 1: {v1!r} accion={a1!r}")
+    historial_tono = [
+        {"role": "user", "content": "mandá un recordatorio mañana a las 7 avisando que es la cobertura de hoy de Players"},
+        {"role": "assistant", "content": v1 or ""},
+    ]
+    r2 = preguntar_ia(
+        "y entende una cosa, no es 'es tuyo', es 'es nuestro', acordate que somos equipo",
+        state, permitir_acciones=True, historial=historial_tono,
+    )
+    v2, a2 = extraer_accion(r2) if r2 else (r2, None)
+    print(f"[tono-accion-test] borrador 2 (tras corrección): {v2!r} accion={a2!r}")
+
     for msg in ["hola", "dale un buen dia a los players y presentate"]:
         t1 = time.monotonic()
         respuesta = preguntar_ia(msg, state, permitir_acciones=True)
