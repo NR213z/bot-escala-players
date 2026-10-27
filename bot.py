@@ -397,9 +397,22 @@ def modo_webhookinfo():
     print(f"[webhookinfo] max_connections={info.get('max_connections')}")
     print(f"[webhookinfo] ip_address={info.get('ip_address')}")
     import time
-    t1 = time.monotonic()
-    respuesta = preguntar_ia("hola", load_state())
-    print(f"[ia-test] elapsed={time.monotonic()-t1:.1f}s respuesta={respuesta!r}")
+    global IA_URL
+    candidatos = [
+        "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+        "@cf/openai/gpt-oss-20b",
+        "@cf/openai/gpt-oss-120b",
+        "@cf/zai-org/glm-5.3-flash",
+        "@cf/mistralai/mistral-small-3.1-24b-instruct",
+    ]
+    mensajes = ["hola", "che como estas, todo bien?", "jaja dale, gracias bot"]
+    state = load_state()
+    for modelo in candidatos:
+        IA_URL = f"https://api.cloudflare.com/client/v4/accounts/{CLOUDFLARE_ACCOUNT_ID}/ai/run/{modelo}"
+        for msg in mensajes:
+            t1 = time.monotonic()
+            respuesta = preguntar_ia(msg, state)
+            print(f"[modelo-test] {modelo} | {msg!r} -> ({time.monotonic()-t1:.1f}s) {respuesta!r}")
 
 
 def modo_poll():
