@@ -95,6 +95,14 @@
     {
       "role": "assistant",
       "content": "¡Entendido Brandon! Si cambias de opinión, ya sabés que estoy acá. ¡Cualquier cosa me avisás!"
+    },
+    {
+      "role": "user",
+      "content": "Camila: A ver que onda con esto... Buenos días players y Buenos días @escala_players_bot"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Buenos días Camila! ¿Cómo andás? ¿Qué tal el día?"
     }
   ]
 }
