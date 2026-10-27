@@ -22,7 +22,7 @@ CLOUDFLARE_ACCOUNT_ID = os.environ.get("CLOUDFLARE_ACCOUNT_ID", "")
 CLOUDFLARE_API_TOKEN = os.environ.get("CLOUDFLARE_API_TOKEN", "")
 BOT_USERNAME = "escala_players_bot"
 API = f"https://api.telegram.org/bot{TOKEN}"
-IA_MODELO = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+IA_MODELO = "@cf/mistralai/mistral-small-3.1-24b-instruct"
 IA_URL = f"https://api.cloudflare.com/client/v4/accounts/{CLOUDFLARE_ACCOUNT_ID}/ai/run/{IA_MODELO}"
 STATE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "state.json")
 TZ = ZoneInfo("America/Argentina/Buenos_Aires")
@@ -397,22 +397,9 @@ def modo_webhookinfo():
     print(f"[webhookinfo] max_connections={info.get('max_connections')}")
     print(f"[webhookinfo] ip_address={info.get('ip_address')}")
     import time
-    global IA_URL
-    candidatos = [
-        "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
-        "@cf/openai/gpt-oss-20b",
-        "@cf/openai/gpt-oss-120b",
-        "@cf/zai-org/glm-5.3-flash",
-        "@cf/mistralai/mistral-small-3.1-24b-instruct",
-    ]
-    mensajes = ["hola", "che como estas, todo bien?", "jaja dale, gracias bot"]
-    state = load_state()
-    for modelo in candidatos:
-        IA_URL = f"https://api.cloudflare.com/client/v4/accounts/{CLOUDFLARE_ACCOUNT_ID}/ai/run/{modelo}"
-        for msg in mensajes:
-            t1 = time.monotonic()
-            respuesta = preguntar_ia(msg, state)
-            print(f"[modelo-test] {modelo} | {msg!r} -> ({time.monotonic()-t1:.1f}s) {respuesta!r}")
+    t1 = time.monotonic()
+    respuesta = preguntar_ia("hola", load_state())
+    print(f"[ia-test] elapsed={time.monotonic()-t1:.1f}s respuesta={respuesta!r}")
 
 
 def modo_poll():
