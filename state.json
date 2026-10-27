@@ -96,6 +96,14 @@
     {
       "role": "assistant",
       "content": "¡Perfecto! Gracias por la idea. Entonces, los mensajes quedarían así:\n\n\"¡Buen día Players, Dios los bendiga!\n\n¡Recuerden que mañana es nuestra cobertura de [nombre del evento], vamos que vamos!\"\n\n\"¡Buen día Players, Dios los bendiga!\n\n¡Recuerden que hoy es nuestra cobertura de [nombre del evento], vamos que vamos!\"\n\n¿Te parece bien así?"
+    },
+    {
+      "role": "user",
+      "content": "claro"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Genial! Listo para cuando lo necesites."
     }
   ],
   "historial_grupo": [
