@@ -55,6 +55,14 @@
     {
       "role": "assistant",
       "content": "¡De nada Pri! ¡Siempre listo para defender al equipo! 😎"
+    },
+    {
+      "role": "user",
+      "content": "🌸 • Pri: Me caíste bien, estás perdonado 🤝"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Gracias Pri! Me alegra saberlo. ¡Siempre acá para levantar el ánimo! 😄"
     }
   ]
 }
