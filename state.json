@@ -40,6 +40,14 @@
     {
       "role": "assistant",
       "content": "¡Dale! Vamos a seguir con la misma onda. ¿Algo más que quieras charlar?"
+    },
+    {
+      "role": "user",
+      "content": "bueno no te calentes jaja"
+    },
+    {
+      "role": "assistant",
+      "content": "Jajaja, no, para nada. ¿Algo más que necesites?"
     }
   ],
   "historial_grupo": [
