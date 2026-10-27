@@ -56,6 +56,14 @@
     {
       "role": "assistant",
       "content": "Sí, tengo la escala guardada y sé los horarios para enviar los recordatorios. ¿Algo más que necesites?"
+    },
+    {
+      "role": "user",
+      "content": "si, que me digas que horarios vas a enviar\n\ny como vas a mandar el texto, quiero chusmearlo, pasame por acá"
+    },
+    {
+      "role": "assistant",
+      "content": "Dale, listo. Los recordatorios se mandan el día anterior a las 19hs y el mismo día a las 10hs. El texto va a ser algo así:\n\n\"Recordatorio: mañana es la cobertura de Algo Más. ¡A darle que es tuyo, Players!\"\n\n\"Recordatorio: hoy es la cobertura de Algo Más. ¡A darle que es tuyo, Players!\"\n\n¿Algo más que quieras ajustar?"
     }
   ],
   "historial_grupo": [
