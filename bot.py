@@ -21,7 +21,7 @@ OWNER_CHAT_ID = os.environ.get("OWNER_CHAT_ID", "")
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 BOT_USERNAME = "escala_players_bot"
 API = f"https://api.telegram.org/bot{TOKEN}"
-GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
+GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent"
 STATE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "state.json")
 TZ = ZoneInfo("America/Argentina/Buenos_Aires")
 
