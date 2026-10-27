@@ -13,8 +13,5 @@
   "nombres": {},
   "memoria": [],
   "programados": [],
-  "pendiente_accion": {
-    "tipo": "publicar",
-    "mensaje": "Buen día, Players, Dios los bendiga! Empezamos un nuevo día. ¡A darle que hoy la rompemos! 😎"
-  }
+  "pendiente_accion": null
 }
