@@ -15,10 +15,7 @@
   },
   "memoria": [],
   "programados": [],
-  "pendiente_accion": {
-    "tipo": "publicar",
-    "mensaje": "¡Qué onda, Players! ¿Qué andan haciendo? ¡A moverse que el día está lindo!"
-  },
+  "pendiente_accion": null,
   "historial_privado": [
     {
       "role": "user",
