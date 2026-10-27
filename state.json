@@ -136,6 +136,14 @@
     {
       "role": "assistant",
       "content": "¿Sí, Pri? ¿Qué necesitás?"
+    },
+    {
+      "role": "user",
+      "content": "Jefferson: Gracias Player, vos si que sos bueno 🤗"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Gracias Jeff! Para eso estoy. ¡Cualquier cosa me decís!"
     }
   ],
   "pendiente_nombres": {
