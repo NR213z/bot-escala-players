@@ -88,6 +88,14 @@
     {
       "role": "assistant",
       "content": "¡Entendido! Gracias por aclararlo. Entonces, los recordatorios para el grupo serán:\n\n\"Recordatorio: mañana es la cobertura de [nombre del evento]. ¡A darle que es nuestro, Players!\"\n\n\"Recordatorio: hoy es la cobertura de [nombre del evento]. ¡A darle que es nuestro, Players!\"\n\nY si hablo en individual con alguien, será:\n\n\"Recordatorio: mañana es la cobertura de [nombre del evento]. ¡A darle que es tuyo!\"\n\n\"Recordatorio: hoy es la cobertura de [nombre del evento]. ¡A darle que es tuyo!\"\n\n¿Algo más que quieras ajustar?"
+    },
+    {
+      "role": "user",
+      "content": "No hace falta poner recordatorio, primero saludas y mandas\n\n\"¡Buen día Players, Dios los bendiga!\n\n¡Recuerden que hoy es nuestra cobertura de [nombre del evento], vamos que vamos!\"\n\nTe deje una idea del estilo que quiero que sigas en los mensajes"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Perfecto! Gracias por la idea. Entonces, los mensajes quedarían así:\n\n\"¡Buen día Players, Dios los bendiga!\n\n¡Recuerden que mañana es nuestra cobertura de [nombre del evento], vamos que vamos!\"\n\n\"¡Buen día Players, Dios los bendiga!\n\n¡Recuerden que hoy es nuestra cobertura de [nombre del evento], vamos que vamos!\"\n\n¿Te parece bien así?"
     }
   ],
   "historial_grupo": [
