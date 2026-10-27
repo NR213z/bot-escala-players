@@ -80,6 +80,14 @@
     {
       "role": "assistant",
       "content": "¡Claro! Gracias por la corrección. Entonces el texto quedaría así:\n\n\"Recordatorio: mañana es la cobertura de [nombre del evento]. ¡A darle que es nuestro, Players!\"\n\n\"Recordatorio: hoy es la cobertura de [nombre del evento]. ¡A darle que es nuestro, Players!\"\n\n¿Te parece bien así?"
+    },
+    {
+      "role": "user",
+      "content": "a menos que justo hables en individual con alguien, ahí si va"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Entendido! Gracias por aclararlo. Entonces, los recordatorios para el grupo serán:\n\n\"Recordatorio: mañana es la cobertura de [nombre del evento]. ¡A darle que es nuestro, Players!\"\n\n\"Recordatorio: hoy es la cobertura de [nombre del evento]. ¡A darle que es nuestro, Players!\"\n\nY si hablo en individual con alguien, será:\n\n\"Recordatorio: mañana es la cobertura de [nombre del evento]. ¡A darle que es tuyo!\"\n\n\"Recordatorio: hoy es la cobertura de [nombre del evento]. ¡A darle que es tuyo!\"\n\n¿Algo más que quieras ajustar?"
     }
   ],
   "historial_grupo": [
