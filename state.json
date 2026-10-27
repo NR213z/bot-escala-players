@@ -14,9 +14,7 @@
   "memoria": [],
   "programados": [],
   "pendiente_accion": {
-    "tipo": "programar",
-    "fecha": "28/10",
-    "hora": "07:00",
-    "mensaje": "Buen día, Players, Dios los bendiga! Empezamos un nuevo día. ¡A darle que hoy la rompemos! 😎"
+    "tipo": "publicar",
+    "mensaje": "Buen día, Players, Dios los bendiga! Empezamos un nuevo día. ¡A darle que hoy la rompemos!"
   }
 }
