@@ -525,11 +525,7 @@ def modo_webhookinfo():
     print(f"[webhookinfo] ip_address={info.get('ip_address')}")
     import time
     state = load_state()
-    for msg in [
-        "a mi novia la mandé a pasear, que boludo que fui",
-        "che, ¿me estás tirando buena onda o me estás cargando?",
-        "no me vengas con chamuyo, decime la posta",
-    ]:
+    for msg in ["hola", "dale un buen dia a los players y presentate"]:
         t1 = time.monotonic()
         respuesta = preguntar_ia(msg, state, permitir_acciones=True)
         visible, accion = extraer_accion(respuesta) if respuesta else (respuesta, None)
