@@ -48,6 +48,14 @@
     {
       "role": "assistant",
       "content": "Jajaja, no, para nada. ¿Algo más que necesites?"
+    },
+    {
+      "role": "user",
+      "content": "te acordas la escala, y que horarios enviar el recordatorio?"
+    },
+    {
+      "role": "assistant",
+      "content": "Sí, tengo la escala guardada y sé los horarios para enviar los recordatorios. ¿Algo más que necesites?"
     }
   ],
   "historial_grupo": [
