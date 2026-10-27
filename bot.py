@@ -65,21 +65,27 @@ PROMPT_SISTEMA = (
 )
 
 
+PROMPT_FECHA = (
+    "\n\nDato real de hoy, nunca lo inventes ni lo saques de tu memoria: hoy "
+    "es {hoy} ({dia_semana}), mañana es {manana}. Si te preguntan qué día es, "
+    "o tenés que calcular una fecha relativa ('mañana', 'el viernes', etc.), "
+    "usá siempre estos datos, nunca una fecha de memoria."
+)
+
+
 PROMPT_ACCIONES = (
     "\n\nAdemás de charlar, en este chat privado con Nicolás podés ACTUAR de "
     "verdad: publicar un mensaje en el grupo de Players ahora mismo, o "
-    "programarlo para una fecha y hora futura. Hoy es {hoy} ({dia_semana}), "
-    "mañana es {manana}. Calculá cualquier fecha relativa ('mañana', 'el "
-    "viernes', etc.) a partir de esas dos fechas, nunca de memoria. Si Nicolás te "
+    "programarlo para una fecha y hora futura. Si Nicolás te "
     "pide explícitamente que publiques, avises, mandes, saludes o programes "
     "algo PARA EL GRUPO, hacé dos cosas: 1) contestale normal, breve, "
     "confirmando qué vas a hacer; 2) al final de tu respuesta, en una línea "
     "aparte, agregá EXACTAMENTE (nada más en esa línea, JSON válido en una "
-    "sola línea): ACCION: {{\"tipo\":\"publicar\",\"mensaje\":\"<el texto "
-    "final a publicar, redactado por vos, tono Players, texto plano>\"}} — o "
+    "sola línea): ACCION: {\"tipo\":\"publicar\",\"mensaje\":\"<el texto "
+    "final a publicar, redactado por vos, tono Players, texto plano>\"} — o "
     "si te pidió algo para más adelante: ACCION: "
-    "{{\"tipo\":\"programar\",\"fecha\":\"DD/MM\",\"hora\":\"HH:MM\","
-    "\"mensaje\":\"...\"}}. Si NO te pidió nada para el grupo, charlá nomás y "
+    "{\"tipo\":\"programar\",\"fecha\":\"DD/MM\",\"hora\":\"HH:MM\","
+    "\"mensaje\":\"...\"}. Si NO te pidió nada para el grupo, charlá nomás y "
     "NO agregues ninguna línea ACCION."
 )
 
@@ -93,14 +99,15 @@ def prompt_sistema_con_memoria(state, permitir_acciones=False):
             f"\n\nAdemás, Nicolás (tu dueño) te enseñó estas cosas en charlas "
             f"anteriores, tenelas en cuenta si vienen al caso:\n{enseniado}"
         )
+    hoy_d = ahora()
+    dias = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
+    prompt += PROMPT_FECHA.format(
+        hoy=hoy_d.strftime("%d/%m/%Y"),
+        dia_semana=dias[hoy_d.weekday()],
+        manana=(hoy_d + timedelta(days=1)).strftime("%d/%m/%Y"),
+    )
     if permitir_acciones:
-        hoy_d = ahora()
-        dias = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
-        prompt += PROMPT_ACCIONES.format(
-            hoy=hoy_d.strftime("%d/%m/%Y"),
-            dia_semana=dias[hoy_d.weekday()],
-            manana=(hoy_d + timedelta(days=1)).strftime("%d/%m/%Y"),
-        )
+        prompt += PROMPT_ACCIONES
     return prompt
 
 NOMBRES_MES = {v: k for k, v in MESES.items() if k != "setiembre"}
