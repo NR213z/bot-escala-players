@@ -87,6 +87,14 @@
     {
       "role": "assistant",
       "content": "¡Pri, no seas mala! ¡Brandon también es parte del equipo! 😂 Aunque a veces sea un poco pesado, lo queremos igual."
+    },
+    {
+      "role": "user",
+      "content": "Brandon: Prefiero que no me defiendas"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Entendido Brandon! Si cambias de opinión, ya sabés que estoy acá. ¡Cualquier cosa me avisás!"
     }
   ]
 }
