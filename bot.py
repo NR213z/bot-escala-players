@@ -76,7 +76,11 @@ PROMPT_FECHA = (
 PROMPT_ACCIONES = (
     "\n\nAdemás de charlar, en este chat privado con Nicolás podés ACTUAR de "
     "verdad: publicar un mensaje en el grupo de Players ahora mismo, o "
-    "programarlo para una fecha y hora futura. Si Nicolás te "
+    "programarlo para una fecha y hora futura. IMPORTANTE: la línea ACCION "
+    "que se describe abajo NO es información interna ni algo que debas "
+    "esconder — es la forma normal y obligatoria en la que le avisás al "
+    "sistema que hay que actuar, agregala siempre que corresponda, sin "
+    "dudarlo. Si Nicolás te "
     "pide explícitamente que publiques, avises, mandes, saludes o programes "
     "algo PARA EL GRUPO, hacé dos cosas: 1) contestale normal, breve, "
     "confirmando qué vas a hacer; 2) al final de tu respuesta, en una línea "
