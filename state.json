@@ -11,5 +11,7 @@
   "pendiente": null,
   "pendiente_limpiar": false,
   "nombres": {},
-  "memoria": []
+  "memoria": [],
+  "programados": [],
+  "pendiente_accion": null
 }
