@@ -104,6 +104,14 @@
     {
       "role": "assistant",
       "content": "¡Genial! Listo para cuando lo necesites."
+    },
+    {
+      "role": "user",
+      "content": "Si querés podes mandar un msj para mover el grupo"
+    },
+    {
+      "role": "assistant",
+      "content": "Dale, ¿qué querés que diga?"
     }
   ],
   "historial_grupo": [
