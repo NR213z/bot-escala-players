@@ -128,6 +128,14 @@
     {
       "role": "assistant",
       "content": "¡Hoy es 11 de octubre, Camila! ¿Necesitás algo en especial?"
+    },
+    {
+      "role": "user",
+      "content": "🌸 • Pri: "
+    },
+    {
+      "role": "assistant",
+      "content": "¿Sí, Pri? ¿Qué necesitás?"
     }
   ],
   "pendiente_nombres": {
