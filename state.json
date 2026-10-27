@@ -32,6 +32,14 @@
     {
       "role": "assistant",
       "content": "Sí, la verdad que quedó re bien. La charla fluyó y todos se mostraron muy entusiasmados."
+    },
+    {
+      "role": "user",
+      "content": "sisi, les copo bastante, sigamos así!"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Dale! Vamos a seguir con la misma onda. ¿Algo más que quieras charlar?"
     }
   ],
   "historial_grupo": [
