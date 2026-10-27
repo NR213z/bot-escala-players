@@ -15,7 +15,10 @@
   },
   "memoria": [],
   "programados": [],
-  "pendiente_accion": null,
+  "pendiente_accion": {
+    "tipo": "publicar",
+    "mensaje": "¡Qué onda, Players! ¿Qué andan haciendo? ¡A moverse que el día está lindo!"
+  },
   "historial_privado": [
     {
       "role": "user",
@@ -112,6 +115,14 @@
     {
       "role": "assistant",
       "content": "Dale, ¿qué querés que diga?"
+    },
+    {
+      "role": "user",
+      "content": "Algo de tipo\n\nQue onda Players, que andan haciendo?\n\nAlgo así, para descontracturar"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Dale! Voy a mandar esto:\n\n\"¡Qué onda, Players! ¿Qué andan haciendo? ¡A moverse que el día está lindo!\""
     }
   ],
   "historial_grupo": [
