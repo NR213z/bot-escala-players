@@ -336,7 +336,10 @@ def modo_webhook():
 
 
 def modo_webhookinfo():
-    """Diagnóstico: consulta getWebhookInfo y lo imprime (sin exponer el token)."""
+    """Diagnóstico: consulta getWebhookInfo y getMe y los imprime (sin exponer el token)."""
+    me = api("getMe").get("result", {})
+    print(f"[getme] id={me.get('id')} username={me.get('username')!r} nombre={me.get('first_name')!r}")
+    print(f"[getme] can_join_groups={me.get('can_join_groups')} can_read_all_group_messages={me.get('can_read_all_group_messages')}")
     info = api("getWebhookInfo").get("result", {})
     print(f"[webhookinfo] url={info.get('url')!r}")
     print(f"[webhookinfo] pending_update_count={info.get('pending_update_count')}")
