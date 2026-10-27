@@ -173,7 +173,7 @@ def limpiar_mencion(texto):
     return patron.sub("", texto or "").strip()
 
 
-HISTORIAL_MAX = 20  # ~10 pares pregunta/respuesta por chat
+HISTORIAL_MAX = 200  # ~100 pares pregunta/respuesta por chat — de sobra, el modelo soporta 128k tokens
 
 
 def preguntar_ia(texto, state, permitir_acciones=False, historial=None):
