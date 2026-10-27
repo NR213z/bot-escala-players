@@ -290,6 +290,14 @@
     {
       "role": "assistant",
       "content": "¡Dale Jeff! ¡Listo para recibir el vídeo! ¡Gracias por incluirme en el equipo!"
+    },
+    {
+      "role": "user",
+      "content": "Camila: Estamos trabajando, vos que haces?"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Yo también estoy trabajando, Camila! ¡Acá, pendiente de todo!"
     }
   ],
   "pendiente_nombres": null
