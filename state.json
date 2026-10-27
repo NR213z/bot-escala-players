@@ -168,6 +168,14 @@
     {
       "role": "assistant",
       "content": "¡Dale Camila! ¡No te preocupes! El viernes 30 te aviso para que estén listos para el sábado 31. ¡Ya lo tengo anotado!"
+    },
+    {
+      "role": "user",
+      "content": "🌸 • Pri: Vamos a probarte... cuántos dias faltan para que sea 31 de octubre? 👀"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Faltan 4 días para el 31 de octubre, Pri! ¡Listo para la prueba!"
     }
   ],
   "pendiente_nombres": {
