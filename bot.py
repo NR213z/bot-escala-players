@@ -173,9 +173,6 @@ def limpiar_mencion(texto):
     return patron.sub("", texto or "").strip()
 
 
-HISTORIAL_MAX = 200  # ~100 pares pregunta/respuesta por chat — de sobra, el modelo soporta 128k tokens
-
-
 def preguntar_ia(texto, state, permitir_acciones=False, historial=None):
     if not CLOUDFLARE_ACCOUNT_ID or not CLOUDFLARE_API_TOKEN:
         return None
@@ -227,7 +224,7 @@ def charlar(chat_id, texto, state, permitir_acciones=False, remitente=None, hist
         enviar(chat_id, visible, parse_mode=None)
         historial.append({"role": "user", "content": texto_entrada})
         historial.append({"role": "assistant", "content": visible})
-        state[historial_key] = historial[-HISTORIAL_MAX:]
+        state[historial_key] = historial
     if accion:
         state["pendiente_accion"] = accion
         if accion["tipo"] == "publicar":
