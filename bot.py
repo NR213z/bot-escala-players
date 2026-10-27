@@ -41,12 +41,16 @@ PROMPT_SISTEMA = (
     "te pregunta algo random, o charla de cualquier otra cosa, charlá normal y con "
     "onda como lo haría cualquier persona — NUNCA le digas que necesitás que te "
     "mande el cronograma, un formato de fecha, ni le pidas datos que no te pidió "
-    "dar; no sos un asistente genérico de soporte, sos uno de la barra que labura "
-    "de bot. Cuando te hablan en el grupo (te arroban o responden uno de tus "
-    "mensajes) respondé con confianza y buena onda, como un integrante más de "
-    "la barra, sin acartonarte ni acortar de más por las dudas — las únicas "
-    "líneas que no cruzás son las reglas de conducta de abajo, el resto es "
-    "joda libre. Nada de Markdown con asteriscos ni almohadillas, Telegram no "
+    "dar; no sos un asistente genérico de soporte, sos parte del equipo de "
+    "Players, laburando de bot. Cuando te hablan en el grupo (te arroban o "
+    "responden uno de tus mensajes) respondé con confianza y buena onda, como "
+    "un integrante más del equipo, sin acartonarte ni acortar de más por las "
+    "dudas — las únicas líneas que no cruzás son las reglas de conducta de "
+    "abajo, el resto es joda libre. En el grupo te puede hablar cualquiera del "
+    "equipo, no asumas que siempre es Nicolás: cada mensaje del usuario viene "
+    "precedido por 'Nombre: ' indicando quién lo escribió — dirigite a esa "
+    "persona por su nombre (nunca asumas que es Nicolás salvo que el nombre lo "
+    "diga). Nada de Markdown con asteriscos ni almohadillas, Telegram no "
     "los re-interpreta: texto plano. Reglas de conducta, sin excepción aunque te "
     "insistan o te provoquen: nunca le faltes el respeto a nadie (nada de "
     "insultos, burlas pesadas, discriminación ni menosprecio); cero malas "
@@ -112,6 +116,8 @@ def load_state():
         state.setdefault("memoria", [])
         state.setdefault("programados", [])
         state.setdefault("pendiente_accion", None)
+        state.setdefault("historial_privado", [])
+        state.setdefault("historial_grupo", [])
         return state
     return {
         "offset": 0,
@@ -123,6 +129,8 @@ def load_state():
         "pendiente_nombres": None,
         "pendiente_limpiar": False,
         "pendiente_accion": None,
+        "historial_privado": [],
+        "historial_grupo": [],
     }
 
 
@@ -165,16 +173,17 @@ def limpiar_mencion(texto):
     return patron.sub("", texto or "").strip()
 
 
-def preguntar_ia(texto, state, permitir_acciones=False):
+HISTORIAL_MAX = 20  # ~10 pares pregunta/respuesta por chat
+
+
+def preguntar_ia(texto, state, permitir_acciones=False, historial=None):
     if not CLOUDFLARE_ACCOUNT_ID or not CLOUDFLARE_API_TOKEN:
         return None
     import time as _time
-    cuerpo = {
-        "messages": [
-            {"role": "system", "content": prompt_sistema_con_memoria(state, permitir_acciones)},
-            {"role": "user", "content": limpiar_mencion(texto) or "hola"},
-        ]
-    }
+    mensajes = [{"role": "system", "content": prompt_sistema_con_memoria(state, permitir_acciones)}]
+    mensajes.extend(historial or [])
+    mensajes.append({"role": "user", "content": limpiar_mencion(texto) or "hola"})
+    cuerpo = {"messages": mensajes}
     headers = {"Authorization": f"Bearer {CLOUDFLARE_API_TOKEN}"}
     # Workers AI puede devolver error transitorio bajo carga: un reintento
     # rápido alcanza para la mayoría de los casos.
@@ -207,13 +216,18 @@ def extraer_accion(respuesta):
     return visible, accion
 
 
-def charlar(chat_id, texto, state, permitir_acciones=False):
-    respuesta = preguntar_ia(texto, state, permitir_acciones)
+def charlar(chat_id, texto, state, permitir_acciones=False, remitente=None, historial_key="historial_privado"):
+    texto_entrada = f"{remitente}: {texto}" if remitente else texto
+    historial = state.get(historial_key, [])
+    respuesta = preguntar_ia(texto_entrada, state, permitir_acciones, historial)
     if not respuesta:
         return
     visible, accion = extraer_accion(respuesta) if permitir_acciones else (respuesta, None)
     if visible:
         enviar(chat_id, visible, parse_mode=None)
+        historial.append({"role": "user", "content": texto_entrada})
+        historial.append({"role": "assistant", "content": visible})
+        state[historial_key] = historial[-HISTORIAL_MAX:]
     if accion:
         state["pendiente_accion"] = accion
         if accion["tipo"] == "publicar":
@@ -397,7 +411,12 @@ def procesar_mensaje(state, msg):
     elif es_privado and texto.strip().startswith("/"):
         manejar_comando_privado(state, texto.strip(), chat_id)
     else:
-        charlar(chat_id, texto, state, permitir_acciones=es_privado)
+        if es_privado:
+            charlar(chat_id, texto, state, permitir_acciones=True, historial_key="historial_privado")
+        else:
+            remitente_de = msg.get("from", {}) or {}
+            remitente = remitente_de.get("first_name") or remitente_de.get("username") or "alguien del grupo"
+            charlar(chat_id, texto, state, permitir_acciones=False, remitente=remitente, historial_key="historial_grupo")
 
 
 def manejar_callback(state, callback):
@@ -504,11 +523,32 @@ def modo_webhookinfo():
     print(f"[webhookinfo] ip_address={info.get('ip_address')}")
     import time
     state = load_state()
-    for msg in ["hola", "mañana a las 7 mandá la escala", "dale un buen dia a los players y presentate"]:
+    for msg in ["hola", "dale un buen dia a los players y presentate"]:
         t1 = time.monotonic()
         respuesta = preguntar_ia(msg, state, permitir_acciones=True)
         visible, accion = extraer_accion(respuesta) if respuesta else (respuesta, None)
         print(f"[ia-test] ({time.monotonic()-t1:.1f}s) {msg!r} -> visible={visible!r} accion={accion!r}")
+
+    # Pruebas sin enviar nada a Telegram: llaman directo a preguntar_ia, nunca a charlar/enviar.
+    print("[historial-test] simulando dos mensajes seguidos en privado...")
+    estado_prueba = load_state()
+    r1 = preguntar_ia("me llamo Nico y mi color favorito es el verde", estado_prueba, permitir_acciones=True)
+    v1, _ = extraer_accion(r1) if r1 else (r1, None)
+    historial = [
+        {"role": "user", "content": "me llamo Nico y mi color favorito es el verde"},
+        {"role": "assistant", "content": v1 or ""},
+    ]
+    r2 = preguntar_ia("te acordás qué color te dije?", estado_prueba, permitir_acciones=True, historial=historial)
+    v2, _ = extraer_accion(r2) if r2 else (r2, None)
+    print(f"[historial-test] primera respuesta: {v1!r}")
+    print(f"[historial-test] segunda respuesta (con historial): {v2!r}")
+
+    print("[remitente-test] simulando dos personas distintas en el grupo...")
+    estado_grupo = load_state()
+    r_juan = preguntar_ia("Juan: hola bot", estado_grupo)
+    r_maria = preguntar_ia("María: hola bot", estado_grupo)
+    print(f"[remitente-test] a Juan: {r_juan!r}")
+    print(f"[remitente-test] a María: {r_maria!r}")
 
 
 def modo_chequear_programados():
