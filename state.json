@@ -13,5 +13,16 @@
   "nombres": {},
   "memoria": [],
   "programados": [],
-  "pendiente_accion": null
+  "pendiente_accion": null,
+  "historial_privado": [],
+  "historial_grupo": [
+    {
+      "role": "user",
+      "content": "Jessica: "
+    },
+    {
+      "role": "assistant",
+      "content": "¡Hola Jess! ¿Cómo andás? ¿Qué tal el día?"
+    }
+  ]
 }
