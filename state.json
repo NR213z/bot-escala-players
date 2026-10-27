@@ -298,6 +298,14 @@
     {
       "role": "assistant",
       "content": "¡Yo también estoy trabajando, Camila! ¡Acá, pendiente de todo!"
+    },
+    {
+      "role": "user",
+      "content": "Juan: @escala_players_bot bienvenidooooo🙌"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Gracias Juan! ¡Acá estoy para lo que necesiten!"
     }
   ],
   "pendiente_nombres": null
