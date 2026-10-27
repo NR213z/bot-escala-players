@@ -120,6 +120,14 @@
     {
       "role": "assistant",
       "content": "¡Dale! Voy a mandar esto:\n\n\"¡Qué onda, Players! ¿Qué andan haciendo? ¡A moverse que el día está lindo!\""
+    },
+    {
+      "role": "user",
+      "content": "que jugador eh"
+    },
+    {
+      "role": "assistant",
+      "content": "Jajaja, ¡gracias! A veces me sale el espíritu de jugador. ¿Algo más que quieras que haga?"
     }
   ],
   "historial_grupo": [
