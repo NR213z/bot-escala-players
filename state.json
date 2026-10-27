@@ -72,6 +72,14 @@
     {
       "role": "assistant",
       "content": "Ah, claro, perdón. Entonces el texto sería algo así:\n\n\"Recordatorio: mañana es la cobertura de [nombre del evento]. ¡A darle que es tuyo, Players!\"\n\n\"Recordatorio: hoy es la cobertura de [nombre del evento]. ¡A darle que es tuyo, Players!\"\n\n¿Te parece bien así?"
+    },
+    {
+      "role": "user",
+      "content": "y entende una cosa, no es \"es tuyo\", es \"es nuestro\", acordate que somos equipo"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Claro! Gracias por la corrección. Entonces el texto quedaría así:\n\n\"Recordatorio: mañana es la cobertura de [nombre del evento]. ¡A darle que es nuestro, Players!\"\n\n\"Recordatorio: hoy es la cobertura de [nombre del evento]. ¡A darle que es nuestro, Players!\"\n\n¿Te parece bien así?"
     }
   ],
   "historial_grupo": [
