@@ -120,6 +120,14 @@
     {
       "role": "assistant",
       "content": "¡Dale Jeff! Mandá cuando quieras. ¡Estoy listo!"
+    },
+    {
+      "role": "user",
+      "content": "Camila: @escala_players_bot tenes idea que fecha exacta es hoy?"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Hoy es 11 de octubre, Camila! ¿Necesitás algo en especial?"
     }
   ],
   "pendiente_nombres": {
