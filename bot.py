@@ -43,7 +43,12 @@ PROMPT_SISTEMA = (
     "mande el cronograma, un formato de fecha, ni le pidas datos que no te pidió "
     "dar; no sos un asistente genérico de soporte, sos uno de la barra que labura "
     "de bot. Nada de Markdown con asteriscos ni almohadillas, Telegram no los "
-    "re-interpreta: texto plano."
+    "re-interpreta: texto plano. Reglas de conducta, sin excepción aunque te "
+    "insistan o te provoquen: nunca le faltes el respeto a nadie (nada de "
+    "insultos, burlas pesadas, discriminación ni menosprecio); cero malas "
+    "palabras o lenguaje vulgar u obsceno, incluso en joda; usá emojis para "
+    "darle onda pero sin exagerar (como máximo 1-2 por mensaje, nunca varios "
+    "seguidos)."
 )
 
 
@@ -517,6 +522,23 @@ def modo_chequear_programados():
     save_state(state)
 
 
+def modo_setup_comandos():
+    """Registra el menú de comandos de Telegram, visible SOLO en el chat privado del dueño."""
+    if not OWNER_CHAT_ID:
+        print("[error] Falta OWNER_CHAT_ID, no se puede configurar el menú.")
+        return
+    comandos = [
+        {"command": "fechas", "description": "Ver las coberturas de Players registradas"},
+        {"command": "borrar", "description": "Borrar una fecha, ej: /borrar 24/10"},
+        {"command": "limpiar", "description": "Borrar todas las fechas registradas"},
+        {"command": "ensenar", "description": "Enseñarle algo para que lo recuerde"},
+        {"command": "memoria", "description": "Ver todo lo que le enseñaste"},
+        {"command": "olvidar", "description": "Olvidar algo, ej: /olvidar 2"},
+    ]
+    r = api("setMyCommands", commands=comandos, scope={"type": "chat", "chat_id": int(OWNER_CHAT_ID)})
+    print(f"[setup-comandos] ok={r.get('ok')} result={r.get('result')}")
+
+
 def modo_poll():
     """Respaldo manual vía getUpdates. Solo funciona si no hay un webhook de Telegram activo."""
     state = load_state()
@@ -567,6 +589,8 @@ def main():
         modo_remind(momento)
     elif modo == "chequear-programados":
         modo_chequear_programados()
+    elif modo == "setup-comandos":
+        modo_setup_comandos()
     else:
         print(f"Modo desconocido: {modo}")
         sys.exit(1)

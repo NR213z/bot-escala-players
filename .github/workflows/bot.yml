@@ -6,13 +6,14 @@ on:
   workflow_dispatch:
     inputs:
       modo:
-        description: "remind-hoy | remind-manana | chequear-programados | poll (sin webhook activo) | webhookinfo (diagnóstico)"
+        description: "remind-hoy | remind-manana | chequear-programados | setup-comandos | poll (sin webhook) | webhookinfo (diagnóstico)"
         default: "remind-hoy"
         type: choice
         options:
           - remind-hoy
           - remind-manana
           - chequear-programados
+          - setup-comandos
           - poll
           - webhookinfo
 
@@ -46,6 +47,7 @@ jobs:
                 poll) echo "args=poll" >> "$GITHUB_OUTPUT" ;;
                 webhookinfo) echo "args=webhookinfo" >> "$GITHUB_OUTPUT" ;;
                 chequear-programados) echo "args=chequear-programados" >> "$GITHUB_OUTPUT" ;;
+                setup-comandos) echo "args=setup-comandos" >> "$GITHUB_OUTPUT" ;;
                 *) echo "args=remind hoy" >> "$GITHUB_OUTPUT" ;;
               esac
               ;;
