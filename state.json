@@ -64,6 +64,14 @@
     {
       "role": "assistant",
       "content": "Dale, listo. Los recordatorios se mandan el día anterior a las 19hs y el mismo día a las 10hs. El texto va a ser algo así:\n\n\"Recordatorio: mañana es la cobertura de Algo Más. ¡A darle que es tuyo, Players!\"\n\n\"Recordatorio: hoy es la cobertura de Algo Más. ¡A darle que es tuyo, Players!\"\n\n¿Algo más que quieras ajustar?"
+    },
+    {
+      "role": "user",
+      "content": "pero mirá que no es algo más siempre"
+    },
+    {
+      "role": "assistant",
+      "content": "Ah, claro, perdón. Entonces el texto sería algo así:\n\n\"Recordatorio: mañana es la cobertura de [nombre del evento]. ¡A darle que es tuyo, Players!\"\n\n\"Recordatorio: hoy es la cobertura de [nombre del evento]. ¡A darle que es tuyo, Players!\"\n\n¿Te parece bien así?"
     }
   ],
   "historial_grupo": [
