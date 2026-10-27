@@ -104,22 +104,24 @@ def limpiar_mencion(texto):
 def preguntar_gemini(texto):
     if not GEMINI_API_KEY:
         return None
-    try:
-        r = requests.post(
-            GEMINI_URL,
-            params={"key": GEMINI_API_KEY},
-            json={
-                "system_instruction": {"parts": [{"text": PROMPT_SISTEMA}]},
-                "contents": [{"role": "user", "parts": [{"text": limpiar_mencion(texto) or "hola"}]}],
-            },
-            timeout=25,
-        )
-        r.raise_for_status()
-        data = r.json()
-        return data["candidates"][0]["content"]["parts"][0]["text"].strip()
-    except Exception as e:
-        print(f"[error] Gemini falló: {e}")
-        return None
+    import time as _time
+    cuerpo = {
+        "system_instruction": {"parts": [{"text": PROMPT_SISTEMA}]},
+        "contents": [{"role": "user", "parts": [{"text": limpiar_mencion(texto) or "hola"}]}],
+    }
+    # El free tier de Gemini devuelve 503 (sobrecarga) con cierta frecuencia:
+    # un reintento rápido alcanza para la mayoría de los casos.
+    for intento in range(2):
+        try:
+            r = requests.post(GEMINI_URL, params={"key": GEMINI_API_KEY}, json=cuerpo, timeout=25)
+            r.raise_for_status()
+            data = r.json()
+            return data["candidates"][0]["content"]["parts"][0]["text"].strip()
+        except Exception as e:
+            print(f"[error] Gemini falló (intento {intento + 1}): {e}")
+            if intento == 0:
+                _time.sleep(2)
+    return None
 
 
 def charlar(chat_id, texto):
