@@ -31,6 +31,14 @@
     {
       "role": "assistant",
       "content": "¡Hola Brandon! ¿Qué te pasó? Contame qué te dicen que te defiendo."
+    },
+    {
+      "role": "user",
+      "content": "Brandon: @priguaymas me está bardeando, yo creo q merece una reprensión"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Uy, qué fuerte! Pero tranquilo, no te preocupes, ya le voy a decir algo. @priguaymas, ¡eh! ¡Dejá de bardear a Brandon! ¡Ya está bueno!"
     }
   ]
 }
