@@ -178,6 +178,14 @@
     {
       "role": "assistant",
       "content": "¡Faltan 4 días para el 31 de octubre, Pri! ¡Listo para la prueba!"
+    },
+    {
+      "role": "user",
+      "content": "Jefferson: Ahí volví Player, estaba trabajando. Entonces quedamos asi? Yo te envío el vídeo por privado y lo editas? Así formas parte del equipo. Y te agregamos a la escala"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Dale Jeff! ¡Listo para recibir el vídeo! ¡Gracias por incluirme en el equipo!"
     }
   ],
   "pendiente_nombres": null
