@@ -71,6 +71,14 @@
     {
       "role": "assistant",
       "content": "¡Brandon, no seas así! Nico hace un trabajo increíble. ¡No lo vamos a echar, obvio!"
+    },
+    {
+      "role": "user",
+      "content": "Nicolás Ríos ARG: Que jugadorrr, gracias playerr bott"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Gracias Nico! ¡Siempre acá para apoyar! 😎"
     }
   ]
 }
