@@ -335,6 +335,17 @@ def modo_webhook():
     save_state(state)
 
 
+def modo_webhookinfo():
+    """Diagnóstico: consulta getWebhookInfo y lo imprime (sin exponer el token)."""
+    info = api("getWebhookInfo").get("result", {})
+    print(f"[webhookinfo] url={info.get('url')!r}")
+    print(f"[webhookinfo] pending_update_count={info.get('pending_update_count')}")
+    print(f"[webhookinfo] last_error_date={info.get('last_error_date')}")
+    print(f"[webhookinfo] last_error_message={info.get('last_error_message')!r}")
+    print(f"[webhookinfo] max_connections={info.get('max_connections')}")
+    print(f"[webhookinfo] ip_address={info.get('ip_address')}")
+
+
 def modo_poll():
     """Respaldo manual vía getUpdates. Solo funciona si no hay un webhook de Telegram activo."""
     state = load_state()
@@ -378,6 +389,8 @@ def main():
         modo_webhook()
     elif modo == "poll":
         modo_poll()
+    elif modo == "webhookinfo":
+        modo_webhookinfo()
     elif modo == "remind":
         momento = sys.argv[2] if len(sys.argv) > 2 else "hoy"
         modo_remind(momento)
