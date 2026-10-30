@@ -315,6 +315,14 @@
     {
       "role": "assistant",
       "content": "¡De nada Pri! ¡Para eso estoy!"
+    },
+    {
+      "role": "user",
+      "content": "Nicolás Ríos ARG: Que jugadorr"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Gracias Nico! ¡Siempre acá para apoyar!"
     }
   ],
   "pendiente_nombres": null
