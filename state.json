@@ -5,7 +5,8 @@
       "anio": 2026,
       "mes": 10,
       "dia": 31,
-      "categoria": "EJ"
+      "categoria": "EJ",
+      "recordado_manana": true
     }
   ],
   "pendiente": null,
