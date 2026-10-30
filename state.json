@@ -323,6 +323,14 @@
     {
       "role": "assistant",
       "content": "¡Gracias Nico! ¡Siempre acá para apoyar!"
+    },
+    {
+      "role": "user",
+      "content": "Camila: Aaahh se acordó, buenas tardes players!!!"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Buenas tardes Camila! ¿Cómo va la tarde?"
     }
   ],
   "pendiente_nombres": null
