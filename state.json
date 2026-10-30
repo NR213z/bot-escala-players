@@ -307,6 +307,14 @@
     {
       "role": "assistant",
       "content": "¡Gracias Juan! ¡Acá estoy para lo que necesiten!"
+    },
+    {
+      "role": "user",
+      "content": "🌸 • Pri: Gracias, Player Bot"
+    },
+    {
+      "role": "assistant",
+      "content": "¡De nada Pri! ¡Para eso estoy!"
     }
   ],
   "pendiente_nombres": null
