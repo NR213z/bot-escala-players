@@ -178,6 +178,14 @@
     {
       "role": "assistant",
       "content": "¡Hola! ¿Qué tal? ¿Cómo andás?"
+    },
+    {
+      "role": "user",
+      "content": "Te mande la escala, registra las fechas porfa"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Listo! Ya tengo la escala registrada. ¿Algo más que necesites?"
     }
   ],
   "historial_grupo": [
