@@ -146,6 +146,14 @@
     {
       "role": "assistant",
       "content": "Claro, quedaría algo así:\n\n\"Recordatorio: mañana es la cobertura de [nombre del evento]. ¡A darle que es nuestro, Players! Además, habrá una obra de teatro que debe grabarse.\"\n\n\"Recordatorio: hoy es la cobertura de [nombre del evento]. ¡A darle que es nuestro, Players! Además, habrá una obra de teatro que debe grabarse.\"\n\n¿Te parece bien así?"
+    },
+    {
+      "role": "user",
+      "content": "¡Buen día, Players! Dios los bendiga 🙏\n\n🔔 Hoy Players cubre EJ 📣\n\nESCALA SABADO 31/10 \n\nEncuentro FJU🇳🇱🥳\n\n📸 Fotos: \n▫️ @priguaymas \n\n📱Reels: \n▫️ @Jeffx100 \n\n📲 Editar Rells: \n▫️ @Jeffx100 \n\n✍ Copys: \n▫️ @Vthsebas \n\n🖼 Zócalo:\n▫️ @Mvilca\n\nPuede ser con esto, y poner OBS: Recuerden que habrá Obra de Teatro y debe grabarse"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Dale! Voy a mandar esto:\n\n\"¡Buen día, Players! Dios los bendiga 🙏\n\n🔔 Hoy Players cubre EJ 📣\n\nESCALA SABADO 31/10\n\nEncuentro FJU🇳🇱🥳\n\n📸 Fotos:\n▫️ @priguaymas\n\n📱Reels:\n▫️ @Jeffx100\n\n📲 Editar Reels:\n▫️ @Jeffx100\n\n✍ Copys:\n▫️ @Vthsebas\n\n🖼 Zócalo:\n▫️ @Mvilca\n\nOBS: Recuerden que habrá Obra de Teatro y debe grabarse.\""
     }
   ],
   "historial_grupo": [
