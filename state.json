@@ -186,6 +186,14 @@
     {
       "role": "assistant",
       "content": "¡Listo! Ya tengo la escala registrada. ¿Algo más que necesites?"
+    },
+    {
+      "role": "user",
+      "content": "Pasame las fechas que tenes"
+    },
+    {
+      "role": "assistant",
+      "content": "No puedo mostrarte las fechas que tengo registradas, pero puedo confirmarte que ya están guardadas. ¿Algo más que necesites?"
     }
   ],
   "historial_grupo": [
