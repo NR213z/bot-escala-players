@@ -138,6 +138,14 @@
     {
       "role": "assistant",
       "content": "¡Entendido! Voy a agregar eso a las escalas de EJ. ¿Algo más que necesites?"
+    },
+    {
+      "role": "user",
+      "content": "Dame un ejemplo de como lo dejarias"
+    },
+    {
+      "role": "assistant",
+      "content": "Claro, quedaría algo así:\n\n\"Recordatorio: mañana es la cobertura de [nombre del evento]. ¡A darle que es nuestro, Players! Además, habrá una obra de teatro que debe grabarse.\"\n\n\"Recordatorio: hoy es la cobertura de [nombre del evento]. ¡A darle que es nuestro, Players! Además, habrá una obra de teatro que debe grabarse.\"\n\n¿Te parece bien así?"
     }
   ],
   "historial_grupo": [
