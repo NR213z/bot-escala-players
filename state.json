@@ -8,45 +8,39 @@
       "categoria": "EJ",
       "recordado_manana": true,
       "recordado_hoy": true
+    },
+    {
+      "anio": 2026,
+      "mes": 11,
+      "dia": 3,
+      "categoria": "A+"
+    },
+    {
+      "anio": 2026,
+      "mes": 11,
+      "dia": 14,
+      "categoria": "Canchas"
+    },
+    {
+      "anio": 2026,
+      "mes": 11,
+      "dia": 17,
+      "categoria": "A+"
+    },
+    {
+      "anio": 2026,
+      "mes": 11,
+      "dia": 28,
+      "categoria": "EJ"
+    },
+    {
+      "anio": 2026,
+      "mes": 12,
+      "dia": 5,
+      "categoria": "Canchas"
     }
   ],
-  "pendiente": {
-    "mes_key": "2026-11",
-    "mes_nombre": "noviembre",
-    "eventos": [
-      {
-        "anio": 2026,
-        "mes": 11,
-        "dia": 3,
-        "categoria": "A+"
-      },
-      {
-        "anio": 2026,
-        "mes": 11,
-        "dia": 14,
-        "categoria": "Canchas"
-      },
-      {
-        "anio": 2026,
-        "mes": 11,
-        "dia": 17,
-        "categoria": "A+"
-      },
-      {
-        "anio": 2026,
-        "mes": 11,
-        "dia": 28,
-        "categoria": "EJ"
-      },
-      {
-        "anio": 2026,
-        "mes": 12,
-        "dia": 5,
-        "categoria": "Canchas"
-      }
-    ],
-    "tipo": "nuevo"
-  },
+  "pendiente": null,
   "pendiente_limpiar": false,
   "nombres": {
     "2026-10-31": "ESCALA SABADO 31/10 \n\nEncuentro FJU🇳🇱🥳\n\n📸 Fotos: \n▫️ @priguaymas \n\n📱Reels: \n▫️ @Jeffx100 \n\n📲 Editar Rells: \n▫️ @Jeffx100 \n\n✍ Copys: \n▫️ @Vthsebas \n\n🖼 Zócalo:\n▫️ @Mvilca"
