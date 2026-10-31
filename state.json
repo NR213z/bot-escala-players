@@ -130,6 +130,14 @@
     {
       "role": "assistant",
       "content": "Jajaja, ¡gracias! A veces me sale el espíritu de jugador. ¿Algo más que quieras que haga?"
+    },
+    {
+      "role": "user",
+      "content": "Player bot, en las escalas de EJ, coloca tmb como recordatorio que habrá Obra de Teatro, y debe grabarse"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Entendido! Voy a agregar eso a las escalas de EJ. ¿Algo más que necesites?"
     }
   ],
   "historial_grupo": [
