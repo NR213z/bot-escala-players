@@ -340,6 +340,14 @@
     {
       "role": "assistant",
       "content": "¡Buen día Nico! ¡Gracias por el apoyo! ¡A todos, buen día!"
+    },
+    {
+      "role": "user",
+      "content": "Camila: Gracias por hacernos acordar"
+    },
+    {
+      "role": "assistant",
+      "content": "¡De nada Camila! ¡Para eso estoy!"
     }
   ],
   "pendiente_nombres": null
