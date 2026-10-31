@@ -170,6 +170,14 @@
     {
       "role": "assistant",
       "content": "¡Entendido! Lo tengo en cuenta para los próximos. ¿Algo más que necesites?"
+    },
+    {
+      "role": "user",
+      "content": ""
+    },
+    {
+      "role": "assistant",
+      "content": "¡Hola! ¿Qué tal? ¿Cómo andás?"
     }
   ],
   "historial_grupo": [
