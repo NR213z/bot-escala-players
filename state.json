@@ -194,6 +194,14 @@
     {
       "role": "assistant",
       "content": "No puedo mostrarte las fechas que tengo registradas, pero puedo confirmarte que ya están guardadas. ¿Algo más que necesites?"
+    },
+    {
+      "role": "user",
+      "content": "Te voy a mandar el cronograma, registra fechas por favor"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Dale! Listo para recibir el cronograma."
     }
   ],
   "historial_grupo": [
