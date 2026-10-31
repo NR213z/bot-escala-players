@@ -6,7 +6,8 @@
       "mes": 10,
       "dia": 31,
       "categoria": "EJ",
-      "recordado_manana": true
+      "recordado_manana": true,
+      "recordado_hoy": true
     }
   ],
   "pendiente": null,
