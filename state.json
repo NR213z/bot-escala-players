@@ -332,6 +332,14 @@
     {
       "role": "assistant",
       "content": "¡Buenas tardes Camila! ¿Cómo va la tarde?"
+    },
+    {
+      "role": "user",
+      "content": "Nicolás Ríos ARG: Que grande el playerr bot\n\nBuen dia a todos"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Buen día Nico! ¡Gracias por el apoyo! ¡A todos, buen día!"
     }
   ],
   "pendiente_nombres": null
