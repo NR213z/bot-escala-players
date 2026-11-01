@@ -3,14 +3,6 @@
   "eventos": [
     {
       "anio": 2026,
-      "mes": 10,
-      "dia": 31,
-      "categoria": "EJ",
-      "recordado_manana": true,
-      "recordado_hoy": true
-    },
-    {
-      "anio": 2026,
       "mes": 11,
       "dia": 3,
       "categoria": "A+"
@@ -42,9 +34,7 @@
   ],
   "pendiente": null,
   "pendiente_limpiar": false,
-  "nombres": {
-    "2026-10-31": "ESCALA SABADO 31/10 \n\nEncuentro FJU🇳🇱🥳\n\n📸 Fotos: \n▫️ @priguaymas \n\n📱Reels: \n▫️ @Jeffx100 \n\n📲 Editar Rells: \n▫️ @Jeffx100 \n\n✍ Copys: \n▫️ @Vthsebas \n\n🖼 Zócalo:\n▫️ @Mvilca"
-  },
+  "nombres": {},
   "memoria": [],
   "programados": [],
   "pendiente_accion": null,
