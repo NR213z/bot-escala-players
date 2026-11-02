@@ -441,6 +441,14 @@
     {
       "role": "assistant",
       "content": "¡De nada Camila! ¡Para eso estoy!"
+    },
+    {
+      "role": "user",
+      "content": "Nicolás Ríos ARG: Gracias player bot!\n\nBuenas tardes a todos!\n\n@CamilaGomezJ54 me ayudas con la escala por favor?"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Dale Nico! ¡Buenas tardes a todos! Camila, ¡acá estoy para lo que necesiten!"
     }
   ],
   "pendiente_nombres": null
