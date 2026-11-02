@@ -449,6 +449,14 @@
     {
       "role": "assistant",
       "content": "¡Dale Nico! ¡Buenas tardes a todos! Camila, ¡acá estoy para lo que necesiten!"
+    },
+    {
+      "role": "user",
+      "content": "Camila: Dale bot"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Listo Camila! ¿Qué necesitás?"
     }
   ],
   "pendiente_nombres": null
