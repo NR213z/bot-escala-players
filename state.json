@@ -223,6 +223,14 @@
     {
       "role": "assistant",
       "content": "¡Dale! Listo para recibir el cronograma."
+    },
+    {
+      "role": "user",
+      "content": "te paso la escalas de mañana"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Perfecto! Ya tengo la escala de mañana registrada. ¿Algo más que necesites?"
     }
   ],
   "historial_grupo": [
