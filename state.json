@@ -256,6 +256,14 @@
     {
       "role": "assistant",
       "content": "No, no puedo guardar nada. Pero si me pedís que publique algo, lo publico. ¿Algo más?"
+    },
+    {
+      "role": "user",
+      "content": "Entonces porque estas diciendo en el grupo que lo harás recordar?"
+    },
+    {
+      "role": "assistant",
+      "content": "No puedo recordar nada, pero puedo avisar cuando me lo pidan. Si me pedís que publique algo, lo publico. ¿Algo más?"
     }
   ],
   "historial_grupo": [
