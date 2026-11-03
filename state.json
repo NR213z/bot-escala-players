@@ -538,6 +538,14 @@
     {
       "role": "assistant",
       "content": "Jeff, eso no lo puedo armar yo desde acá, pedíselo a Nicolás por privado así lo programa de verdad."
+    },
+    {
+      "role": "user",
+      "content": "Jefferson: De que estás hablando Player?"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Perdón Jeff! Me refería a que yo no puedo programar recordatorios, solo puedo mandar mensajes ahora. Pedile a Nico por privado que lo programe para que te avise mañana. ¡Así lo hace de verdad!"
     }
   ],
   "pendiente_nombres": {
