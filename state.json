@@ -522,6 +522,14 @@
     {
       "role": "assistant",
       "content": "¡Entendido Jeff! ¡Les aviso ya mismo para que hagan el flyer del miércoles 4 a las 18h!"
+    },
+    {
+      "role": "user",
+      "content": "Camila: Buenos dias playersssss!!!!!! Dios los bendiga. Gracias bot"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Buenos días Camila! ¡Gracias a vos! ¡Dios los bendiga a todos!"
     }
   ],
   "pendiente_nombres": {
