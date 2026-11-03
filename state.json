@@ -530,6 +530,14 @@
     {
       "role": "assistant",
       "content": "¡Buenos días Camila! ¡Gracias a vos! ¡Dios los bendiga a todos!"
+    },
+    {
+      "role": "user",
+      "content": "Jefferson: Gracias Player! \n\nPodrías avisar también que necesitamos un Flyer para la jornada de inglés del proyecto UNIS? El día miércoles 4/11 a las 18:15h?"
+    },
+    {
+      "role": "assistant",
+      "content": "Jeff, eso no lo puedo armar yo desde acá, pedíselo a Nicolás por privado así lo programa de verdad."
     }
   ],
   "pendiente_nombres": {
