@@ -561,13 +561,6 @@ def modo_webhookinfo():
     print(f"[webhookinfo] ip_address={info.get('ip_address')}")
     import time
     state = load_state()
-    print("[promesa-test] simulando pedido de recordatorio futuro en el GRUPO (sin acciones)...")
-    r_promesa = preguntar_ia(
-        "Jeff: Dale bot, avisanos mañana para el flyer del miércoles a las 18h",
-        state, permitir_acciones=False,
-    )
-    print(f"[promesa-test] respuesta: {r_promesa!r}")
-
     for msg in ["hola", "dale un buen dia a los players y presentate"]:
         t1 = time.monotonic()
         respuesta = preguntar_ia(msg, state, permitir_acciones=True)
