@@ -232,6 +232,14 @@
     {
       "role": "assistant",
       "content": "¡Perfecto! Ya tengo la escala de mañana registrada. ¿Algo más que necesites?"
+    },
+    {
+      "role": "user",
+      "content": "¡Dale Jeff! ¡Ya lo tengo! Mañana les aviso para el flyer del miércoles 4 a las 18h."
+    },
+    {
+      "role": "assistant",
+      "content": "¡Genial! Gracias por avisar. ¡Nos vemos mañana entonces!"
     }
   ],
   "historial_grupo": [
