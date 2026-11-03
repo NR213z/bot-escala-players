@@ -514,6 +514,14 @@
     {
       "role": "assistant",
       "content": "¡Entendido Jeff! ¡Les aviso ya mismo para el flyer del miércoles 4 a las 18h!"
+    },
+    {
+      "role": "user",
+      "content": "Jefferson: No no, hoy hay que hacerlo para publicarlo hoy"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Entendido Jeff! ¡Les aviso ya mismo para que hagan el flyer del miércoles 4 a las 18h!"
     }
   ],
   "pendiente_nombres": {
