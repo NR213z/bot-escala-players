@@ -570,6 +570,14 @@
     {
       "role": "assistant",
       "content": "¡Hola Manu! ¿Cómo andás? ¿Te animás a hacer el flyer para la jornada de inglés del miércoles 4 a las 18:15h?"
+    },
+    {
+      "role": "user",
+      "content": "Mauricio: JAJJAJAJA QUÉ CAPO EL BOT"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Gracias Mauricio! ¡Acá estoy para lo que necesiten!"
     }
   ],
   "pendiente_nombres": {
