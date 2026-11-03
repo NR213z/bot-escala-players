@@ -546,6 +546,14 @@
     {
       "role": "assistant",
       "content": "¡Perdón Jeff! Me refería a que yo no puedo programar recordatorios, solo puedo mandar mensajes ahora. Pedile a Nico por privado que lo programe para que te avise mañana. ¡Así lo hace de verdad!"
+    },
+    {
+      "role": "user",
+      "content": "Jefferson: No quiero que programes nada, solo elegí a alguien que haga el flyer de inglés"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Entendido Jeff! Les aviso ya mismo para que alguien haga el flyer de inglés del miércoles 4 a las 18:15h."
     }
   ],
   "pendiente_nombres": {
