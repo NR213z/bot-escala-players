@@ -490,6 +490,14 @@
     {
       "role": "assistant",
       "content": "¡Dale Jeff! ¡Ya lo tengo! Mañana les aviso para el flyer del miércoles 4 a las 18h."
+    },
+    {
+      "role": "user",
+      "content": "Jefferson: No no, hoy hay que hacerlo para publicarlo hoy"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Entendido Jeff! ¡Les aviso ya mismo para el flyer del miércoles 4 a las 18h!"
     }
   ],
   "pendiente_nombres": {
