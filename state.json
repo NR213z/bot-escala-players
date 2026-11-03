@@ -466,6 +466,14 @@
     {
       "role": "assistant",
       "content": "¡Listo Camila! ¿Qué necesitás?"
+    },
+    {
+      "role": "user",
+      "content": "Jefferson: Gracias Players! \n\nPodrías avisar también que necesitamos un Flyer para la jornada de inglés del proyecto UNIS? El día miércoles 4/11 a las 18h?"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Dale Jeff! ¡Ya lo tengo! Mañana les aviso para el flyer del miércoles 4 a las 18h."
     }
   ],
   "pendiente_nombres": {
