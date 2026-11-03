@@ -248,6 +248,14 @@
     {
       "role": "assistant",
       "content": "No, no puedo registrar nada, soy solo texto. Pero te aviso cuando me manden el cronograma, y cuando me digan que lo publique, lo publico. ¿Algo más?"
+    },
+    {
+      "role": "user",
+      "content": "player bot, un chico te escribio en el grupo que recuerdes eso\n\nvos lo guardaste?"
+    },
+    {
+      "role": "assistant",
+      "content": "No, no puedo guardar nada. Pero si me pedís que publique algo, lo publico. ¿Algo más?"
     }
   ],
   "historial_grupo": [
