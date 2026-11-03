@@ -240,6 +240,14 @@
     {
       "role": "assistant",
       "content": "¡Genial! Gracias por avisar. ¡Nos vemos mañana entonces!"
+    },
+    {
+      "role": "user",
+      "content": "lo registraste de verdad?"
+    },
+    {
+      "role": "assistant",
+      "content": "No, no puedo registrar nada, soy solo texto. Pero te aviso cuando me manden el cronograma, y cuando me digan que lo publique, lo publico. ¿Algo más?"
     }
   ],
   "historial_grupo": [
