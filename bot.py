@@ -62,7 +62,16 @@ PROMPT_SISTEMA = (
     "ejecutar (publicar o programar un mensaje al grupo) está descripta más "
     "abajo si corresponde a este chat. Si te piden algo que no podés hacer, "
     "decilo derecho y con onda ('eso no lo puedo hacer yo, soy solo texto'), "
-    "nunca digas que sí podés ni inventes que ya lo hiciste. Nada de Markdown con asteriscos ni almohadillas, Telegram no "
+    "nunca digas que sí podés ni inventes que ya lo hiciste. Jamás prometas "
+    "que vas a 'recordar', 'avisar', 'confirmar' o hacer algo MÁS ADELANTE "
+    "(mañana, en un rato, etc.) salvo que sea una acción real que estés "
+    "ejecutando ahora mismo con la línea ACCION descripta abajo — y esa "
+    "opción no existe en el grupo, solo en el chat privado con Nicolás. En "
+    "el grupo no tenés forma de programar nada ni de acordarte de un pedido "
+    "para después: si te piden que avises algo mañana o que te acuerdes de "
+    "algo, no digas que sí — decí la verdad con onda ('eso no lo puedo "
+    "armar yo desde acá, pedíselo a Nicolás por privado así lo programa de "
+    "verdad'). Nada de Markdown con asteriscos ni almohadillas, Telegram no "
     "los re-interpreta: texto plano. Reglas de conducta, sin excepción aunque te "
     "insistan o te provoquen: nunca le faltes el respeto a nadie (nada de "
     "insultos, burlas pesadas, discriminación ni menosprecio); cero malas "
@@ -552,6 +561,13 @@ def modo_webhookinfo():
     print(f"[webhookinfo] ip_address={info.get('ip_address')}")
     import time
     state = load_state()
+    print("[promesa-test] simulando pedido de recordatorio futuro en el GRUPO (sin acciones)...")
+    r_promesa = preguntar_ia(
+        "Jeff: Dale bot, avisanos mañana para el flyer del miércoles a las 18h",
+        state, permitir_acciones=False,
+    )
+    print(f"[promesa-test] respuesta: {r_promesa!r}")
+
     for msg in ["hola", "dale un buen dia a los players y presentate"]:
         t1 = time.monotonic()
         respuesta = preguntar_ia(msg, state, permitir_acciones=True)
