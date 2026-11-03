@@ -554,6 +554,14 @@
     {
       "role": "assistant",
       "content": "¡Entendido Jeff! Les aviso ya mismo para que alguien haga el flyer de inglés del miércoles 4 a las 18:15h."
+    },
+    {
+      "role": "user",
+      "content": "Jefferson: No quiero que programes nada, solo elegí a alguien que haga el flyer de inglés 🙌"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Dale Jeff! ¡Ya lo hago! 😎\n\n---\n\n¡Hola Players! Necesitamos que alguien haga el flyer para la jornada de inglés del proyecto UNIS, el miércoles 4 a las 18:15h. ¿Quién se anima?"
     }
   ],
   "pendiente_nombres": {
