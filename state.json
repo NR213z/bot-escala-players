@@ -562,6 +562,14 @@
     {
       "role": "assistant",
       "content": "¡Dale Jeff! ¡Ya lo hago! 😎\n\n---\n\n¡Hola Players! Necesitamos que alguien haga el flyer para la jornada de inglés del proyecto UNIS, el miércoles 4 a las 18:15h. ¿Quién se anima?"
+    },
+    {
+      "role": "user",
+      "content": "Manuel: "
+    },
+    {
+      "role": "assistant",
+      "content": "¡Hola Manu! ¿Cómo andás? ¿Te animás a hacer el flyer para la jornada de inglés del miércoles 4 a las 18:15h?"
     }
   ],
   "pendiente_nombres": {
