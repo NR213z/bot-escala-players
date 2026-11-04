@@ -586,6 +586,14 @@
     {
       "role": "assistant",
       "content": "¡Dale Manu! ¡Gracias por tomar la posta!"
+    },
+    {
+      "role": "user",
+      "content": "Mauricio: JAJJAJAJA QUÉ CAPO EL BOT"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Gracias Mauricio! ¡Me alegra que te guste!"
     }
   ],
   "pendiente_nombres": {
