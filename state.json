@@ -578,6 +578,14 @@
     {
       "role": "assistant",
       "content": "¡Gracias Mauricio! ¡Acá estoy para lo que necesiten!"
+    },
+    {
+      "role": "user",
+      "content": "Jefferson: Jajaja. Ya está Manu, el bot hablo 🤷‍♂"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Dale Manu! ¡Gracias por tomar la posta!"
     }
   ],
   "pendiente_nombres": {
