@@ -3,6 +3,24 @@
   "eventos": [
     {
       "anio": 2026,
+      "mes": 12,
+      "dia": 5,
+      "categoria": "Canchas"
+    },
+    {
+      "anio": 2026,
+      "mes": 11,
+      "dia": 3,
+      "categoria": "A+"
+    },
+    {
+      "anio": 2026,
+      "mes": 11,
+      "dia": 8,
+      "categoria": "LSA"
+    },
+    {
+      "anio": 2026,
       "mes": 11,
       "dia": 14,
       "categoria": "Canchas"
@@ -21,60 +39,18 @@
     },
     {
       "anio": 2026,
+      "mes": 11,
+      "dia": 29,
+      "categoria": "LSA"
+    },
+    {
+      "anio": 2026,
       "mes": 12,
       "dia": 5,
       "categoria": "Canchas"
     }
   ],
-  "pendiente": {
-    "mes_key": "2026-11",
-    "mes_nombre": "noviembre",
-    "eventos": [
-      {
-        "anio": 2026,
-        "mes": 11,
-        "dia": 3,
-        "categoria": "A+"
-      },
-      {
-        "anio": 2026,
-        "mes": 11,
-        "dia": 8,
-        "categoria": "LSA"
-      },
-      {
-        "anio": 2026,
-        "mes": 11,
-        "dia": 14,
-        "categoria": "Canchas"
-      },
-      {
-        "anio": 2026,
-        "mes": 11,
-        "dia": 17,
-        "categoria": "A+"
-      },
-      {
-        "anio": 2026,
-        "mes": 11,
-        "dia": 28,
-        "categoria": "EJ"
-      },
-      {
-        "anio": 2026,
-        "mes": 11,
-        "dia": 29,
-        "categoria": "LSA"
-      },
-      {
-        "anio": 2026,
-        "mes": 12,
-        "dia": 5,
-        "categoria": "Canchas"
-      }
-    ],
-    "tipo": "reemplazo"
-  },
+  "pendiente": null,
   "pendiente_limpiar": false,
   "nombres": {},
   "memoria": [],
