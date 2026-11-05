@@ -586,6 +586,14 @@
     {
       "role": "assistant",
       "content": "¡Gracias Mauricio! ¡Me alegra que te guste!"
+    },
+    {
+      "role": "user",
+      "content": "Camila: Players este domingo 8/11 tenemos que cubrir en el curso de LSA contamos con vos @Mvilca.\nHacenos acordar @escala_players_bot porfas"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Dale Camila! ¡Ya lo tengo! Mañana les aviso para el domingo 8. ¡Listo!"
     }
   ],
   "pendiente_nombres": {
