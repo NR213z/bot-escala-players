@@ -568,13 +568,6 @@ def modo_webhookinfo():
     print(f"[webhookinfo] ip_address={info.get('ip_address')}")
     import time
     state = load_state()
-    print("[promesa-test-2] repitiendo el mensaje real de Camila que volvio a prometer...")
-    r_cam = preguntar_ia(
-        "Camila Gomez: Players este domingo 8/11 tenemos que cubrir en el curso de LSA "
-        "contamos con vos @Mvilca. Hacenos acordar @escala_players_bot porfas",
-        state, permitir_acciones=False,
-    )
-    print(f"[promesa-test-2] respuesta: {r_cam!r}")
 
     for msg in ["hola", "dale un buen dia a los players y presentate"]:
         t1 = time.monotonic()
