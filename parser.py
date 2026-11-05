@@ -9,7 +9,7 @@ MESES = {
 }
 
 HEADER_RE = re.compile(r"🗓\s*([A-Za-zñÑáéíóúÁÉÍÓÚ]+),?\s*(\d{4})")
-LINE_RE = re.compile(r"^\W*(A\+|HdlS|EJ|Canchas)\s*•?\s*(\d{1,2})/(\d{1,2}):\s*(\w+)")
+LINE_RE = re.compile(r"^\W*(A\+|HdlS|EJ|Canchas|LSA)\s*•?\s*(\d{1,2})/(\d{1,2}):\s*(\w+)")
 ESCALA_HEADER_RE = re.compile(r"^ESCALA\s+.+?(\d{1,2})/(\d{1,2}):?\s*$", re.IGNORECASE)
 
 

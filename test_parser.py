@@ -55,6 +55,36 @@ def test_texto_sin_header_no_es_cronograma():
     assert mes is None and eventos == []
 
 
+CRONOGRAMA_NOVIEMBRE_LSA = """✅ CRONOGRAMA DE COBERTURAS
+🗓 Noviembre, 2026
+
+1ª Semana
+🔗 LSA 1/11: Solucionadores
+✨ A+ 3/11: Players
+🤝 EJ • 7/11: Camaleones
+⚽️ Canchas 7/11: Solucionadores
+
+2ª Semana
+🔗 LSA 8/11: Players
+✨ A+ • 10/11: Camaleones
+🤝 EJ • 14/11: Solucionadores
+⚽️ Canchas • 14/11: Players
+"""
+
+ESPERADAS_NOVIEMBRE_LSA = [
+    (2026, 11, 3, "A+"),
+    (2026, 11, 8, "LSA"),
+    (2026, 11, 14, "Canchas"),
+]
+
+
+def test_parse_cronograma_reconoce_categoria_lsa():
+    mes, anio, eventos = parse_cronograma(CRONOGRAMA_NOVIEMBRE_LSA)
+    assert (mes, anio) == (11, 2026)
+    obtenidas = [(e["anio"], e["mes"], e["dia"], e["categoria"]) for e in eventos]
+    assert obtenidas == ESPERADAS_NOVIEMBRE_LSA, obtenidas
+
+
 ESCALA_NOMBRES = """ESCALA ALGO MAS 20/10:
 
 📸 Fotos:
@@ -89,6 +119,7 @@ def test_parse_escala_header_no_matchea_cronograma():
 if __name__ == "__main__":
     test_parse_cronograma_octubre()
     test_texto_sin_header_no_es_cronograma()
+    test_parse_cronograma_reconoce_categoria_lsa()
     test_parse_escala_header_con_nombres()
     test_parse_escala_header_no_matchea_cronograma()
     print("OK: las 7 fechas de Players y el parseo de la escala con nombres coinciden.")
