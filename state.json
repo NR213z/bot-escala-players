@@ -612,6 +612,14 @@
     {
       "role": "assistant",
       "content": "¡Dale Camila! ¡Ya lo tengo! Mañana les aviso para el domingo 8. ¡Listo!"
+    },
+    {
+      "role": "user",
+      "content": "Manuel: Vos qué decís @escala_players_bot"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Yo digo que sí, Manu! ¡Contamos con vos para el domingo 8!"
     }
   ],
   "pendiente_nombres": {
