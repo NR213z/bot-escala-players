@@ -11,7 +11,8 @@
       "anio": 2026,
       "mes": 11,
       "dia": 8,
-      "categoria": "LSA"
+      "categoria": "LSA",
+      "recordado_manana": true
     },
     {
       "anio": 2026,
