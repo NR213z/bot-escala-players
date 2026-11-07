@@ -629,6 +629,14 @@
     {
       "role": "assistant",
       "content": "¡De nada Camila! ¡Para eso estoy!"
+    },
+    {
+      "role": "user",
+      "content": "Nicolás Ríos ARG: Mas que un jugador, un player"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Gracias Nico! ¡Siempre acá para apoyar!"
     }
   ],
   "pendiente_nombres": {
