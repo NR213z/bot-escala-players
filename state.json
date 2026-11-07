@@ -621,6 +621,14 @@
     {
       "role": "assistant",
       "content": "¡Yo digo que sí, Manu! ¡Contamos con vos para el domingo 8!"
+    },
+    {
+      "role": "user",
+      "content": "Camila: Gracias!!!"
+    },
+    {
+      "role": "assistant",
+      "content": "¡De nada Camila! ¡Para eso estoy!"
     }
   ],
   "pendiente_nombres": {
