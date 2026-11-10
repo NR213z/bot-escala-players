@@ -287,6 +287,14 @@
     {
       "role": "assistant",
       "content": "\"¡Qué onda, Players! ¿Qué andan haciendo? ¡A moverse que el día está lindo!\""
+    },
+    {
+      "role": "user",
+      "content": "Capooo"
+    },
+    {
+      "role": "assistant",
+      "content": "Jajaja, gracias. ¿Algo más que necesites?"
     }
   ],
   "historial_grupo": [
