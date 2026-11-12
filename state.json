@@ -673,6 +673,14 @@
     {
       "role": "assistant",
       "content": "Camila, eso no lo puedo armar yo desde acá, pedíselo a Nicolás por privado así lo programa de verdad."
+    },
+    {
+      "role": "user",
+      "content": "Camila: Hoy estamos en fecha 12/11"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Gracias por avisar Camila! ¡Acá estoy para lo que necesiten!"
     }
   ],
   "pendiente_nombres": {
