@@ -665,6 +665,14 @@
     {
       "role": "assistant",
       "content": "¡Dale Camila! ¡Ya está! Mañana les aviso para el domingo 8 y también el mismo día."
+    },
+    {
+      "role": "user",
+      "content": "Camila: @escala_players_bot encárgate de avisarnos 1 día antes y el mismo día también"
+    },
+    {
+      "role": "assistant",
+      "content": "Camila, eso no lo puedo armar yo desde acá, pedíselo a Nicolás por privado así lo programa de verdad."
     }
   ],
   "pendiente_nombres": {
