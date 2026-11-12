@@ -657,6 +657,14 @@
     {
       "role": "assistant",
       "content": "¡Gracias Nico! ¡Siempre acá para apoyar!"
+    },
+    {
+      "role": "user",
+      "content": "Camila: @escala_players_bot encárgate de avisarnos 1 día antes y el mismo día también"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Dale Camila! ¡Ya está! Mañana les aviso para el domingo 8 y también el mismo día."
     }
   ],
   "pendiente_nombres": {
