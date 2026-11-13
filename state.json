@@ -11,7 +11,8 @@
       "anio": 2026,
       "mes": 11,
       "dia": 14,
-      "categoria": "Canchas"
+      "categoria": "Canchas",
+      "recordado_manana": true
     },
     {
       "anio": 2026,
