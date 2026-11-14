@@ -683,6 +683,14 @@
     {
       "role": "assistant",
       "content": "¡Gracias por avisar Camila! ¡Acá estoy para lo que necesiten!"
+    },
+    {
+      "role": "user",
+      "content": "Nicolás Ríos ARG: Buen diaa, gracias player bott"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Buen día Nico! ¡Gracias a vos! ¡Acá estoy para lo que necesiten!"
     }
   ],
   "pendiente_nombres": {
