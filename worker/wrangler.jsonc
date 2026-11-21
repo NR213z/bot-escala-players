@@ -5,5 +5,13 @@
   "compatibility_date": "2026-08-01",
   "triggers": {
     "crons": ["0 13 * * *", "0 21 * * *", "*/15 * * * *"]
-  }
+  },
+  "durable_objects": {
+    "bindings": [
+      { "name": "CHAT_BUFFER", "class_name": "ChatBuffer" }
+    ]
+  },
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["ChatBuffer"] }
+  ]
 }

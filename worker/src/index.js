@@ -59,6 +59,53 @@ function esRelevante(update) {
   return !!(respondido && respondido.from && (respondido.from.username || "").toLowerCase() === BOT_USERNAME);
 }
 
+// Si Nicolás (u otro Player) manda varios mensajes seguidos muy rápido, cada
+// uno dispararía su propia corrida y su propia respuesta de la IA por
+// separado, sin que una vea a la otra. Este Durable Object junta los
+// mensajes de un mismo chat durante una ventana corta (3s desde el último)
+// y recién ahí dispara UNA sola corrida con todo el texto combinado.
+const VENTANA_RECOPILACION_MS = 3000;
+
+export class ChatBuffer {
+  constructor(state, env) {
+    this.state = state;
+    this.env = env;
+  }
+
+  async fetch(request) {
+    const { update } = await request.json();
+    const mensajes = (await this.state.storage.get("mensajes")) || [];
+    mensajes.push(update);
+    await this.state.storage.put("mensajes", mensajes);
+    await this.state.storage.setAlarm(Date.now() + VENTANA_RECOPILACION_MS);
+    return new Response("ok");
+  }
+
+  async alarm() {
+    const mensajes = (await this.state.storage.get("mensajes")) || [];
+    await this.state.storage.delete("mensajes");
+    if (mensajes.length === 0) return;
+    await dispatchUpdate(this.env, combinarMensajes(mensajes));
+  }
+}
+
+function combinarMensajes(updates) {
+  const msgs = updates.map((u) => u.message || u.edited_message).filter(Boolean);
+  if (msgs.length === 0) return updates[updates.length - 1];
+  const ultimo = msgs[msgs.length - 1];
+  const textoCombinado = msgs
+    .map((m) => m.text || m.caption || "")
+    .filter(Boolean)
+    .join("\n");
+  const combinado = { ...ultimo };
+  if (ultimo.caption !== undefined) {
+    combinado.caption = textoCombinado;
+  } else {
+    combinado.text = textoCombinado;
+  }
+  return { message: combinado };
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -69,8 +116,18 @@ export default {
       }
       const update = await request.json();
       if (esRelevante(update)) {
-        // No esperamos la respuesta de GitHub para no demorar el 200 a Telegram.
-        ctx.waitUntil(dispatchUpdate(env, update));
+        if (update.callback_query) {
+          // Los clicks de botón (Sí/No) son acciones puntuales, nunca se recopilan.
+          ctx.waitUntil(dispatchUpdate(env, update));
+        } else {
+          const msg = update.message || update.edited_message;
+          const id = env.CHAT_BUFFER.idFromName(String(msg.chat.id));
+          const stub = env.CHAT_BUFFER.get(id);
+          ctx.waitUntil(stub.fetch("https://chat-buffer/add", {
+            method: "POST",
+            body: JSON.stringify({ update }),
+          }));
+        }
       }
       return new Response("ok", { status: 200 });
     }
