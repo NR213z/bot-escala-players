@@ -283,6 +283,14 @@
     {
       "role": "assistant",
       "content": "Jajaja, gracias. ¿Algo más que necesites?"
+    },
+    {
+      "role": "user",
+      "content": "Que opinas de este gif?"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Me encanta! Es justo lo que necesitamos para subirle la onda al grupo. ¿Lo querés que lo mande?"
     }
   ],
   "historial_grupo": [
