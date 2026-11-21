@@ -291,6 +291,14 @@
     {
       "role": "assistant",
       "content": "¡Me encanta! Es justo lo que necesitamos para subirle la onda al grupo. ¿Lo querés que lo mande?"
+    },
+    {
+      "role": "user",
+      "content": ""
+    },
+    {
+      "role": "assistant",
+      "content": "¡Hola! ¿Qué tal? ¿Cómo andás?"
     }
   ],
   "historial_grupo": [
