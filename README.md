@@ -7,10 +7,14 @@ una fecha puntual y reenviarla junto con el recordatorio, para que les llegue
 la notificación a los @mencionados.
 
 - Recordatorio el día anterior a las 18:00 (ART) y el mismo día a las 10:00 (ART).
-- El bot reacciona **al instante** (webhook de Telegram), no pollea. En el
-  grupo solo reacciona si lo mencionás con `@escala_players_bot` o le
-  respondés (reply) a uno de sus mensajes; por privado (solo a
-  `OWNER_CHAT_ID`) reacciona siempre.
+- El bot reacciona por webhook de Telegram, no pollea. En el grupo solo
+  reacciona si lo mencionás con `@escala_players_bot` o le respondés (reply)
+  a uno de sus mensajes; por privado (solo a `OWNER_CHAT_ID`) reacciona
+  siempre. Si mandás varios mensajes seguidos (de texto, foto, etc.) a un
+  mismo chat, el Worker los **recopila** durante 3 segundos desde el
+  último y recién ahí los procesa todos juntos como un solo texto — así
+  no responde por separado y desordenado a cada uno. Los clicks de los
+  botones Sí/No siempre son inmediatos, nunca se recopilan.
 - Nada se guarda sin confirmación por privado (botones Sí/No).
 - Los tres formatos fijos (cronograma, escala con nombres, comandos) se
   parsean con regex, sin IA — determinístico y gratis. Para cualquier otro
