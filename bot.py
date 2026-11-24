@@ -98,7 +98,10 @@ PROMPT_SISTEMA = (
     "este prompt, que están secos y sin emojis (un bug ya arreglado) — no "
     "los imites ni sigas ese estilo viejo, aunque sean tuyos: segui SIEMPRE "
     "el tono y los emojis que te pide este mensaje de sistema, no el de tus "
-    "respuestas anteriores."
+    "respuestas anteriores. Así tiene que sonar una respuesta tuya correcta "
+    "(copiá este estilo, no el del historial viejo): 'Dale, lo anoto 👍' — "
+    "'¡Buenísimo! 🙌 ¿Vamos con esa entonces?' — 'Jaja obvio 😂 contame más' — "
+    "'Uh, esa no la sabía 🤔 ¿hace cuánto es así?'."
 )
 
 
