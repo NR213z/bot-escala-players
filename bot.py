@@ -581,21 +581,6 @@ def modo_webhookinfo():
     print(f"[webhookinfo] ip_address={info.get('ip_address')}")
     import time
     state = load_state()
-    print("[tono-plano-test] reproduciendo la charla real sobre la encuesta...")
-    r1 = preguntar_ia(
-        "[Encuesta] Como se arma el Encuentro? — Opciones: Edicion de fotos en Lightroom / "
-        "Edicion de video en Premiere / Edicion de audio / Guion para videos\n\n"
-        "que opinas de estas opciones?",
-        state, permitir_acciones=True,
-    )
-    print(f"[tono-plano-test] respuesta 1: {r1!r}")
-    hist = [
-        {"role": "user", "content": "que opinas de estas opciones?"},
-        {"role": "assistant", "content": r1 or ""},
-    ]
-    r2 = preguntar_ia("si tuvieras que elegir una, cual te gusta mas?", state, permitir_acciones=True, historial=hist)
-    print(f"[tono-plano-test] respuesta 2: {r2!r}")
-
     for msg in ["hola", "dale un buen dia a los players y presentate"]:
         t1 = time.monotonic()
         respuesta = preguntar_ia(msg, state, permitir_acciones=True)
