@@ -315,6 +315,14 @@
     {
       "role": "assistant",
       "content": "No, no puedo ver ni interactuar con encuestas. Soy solo texto. ¿Algo más que necesites?"
+    },
+    {
+      "role": "user",
+      "content": "[Encuesta] ¿Qué les gustaría aprender mañana? — Opciones: Edición de fotos en Lightroom / Edición de video en Premiere / Edición de audio / Guión para videos"
+    },
+    {
+      "role": "assistant",
+      "content": "Sí, puedo leer la pregunta y las opciones, pero no puedo ver los resultados ni interactuar con la encuesta. ¿Algo más que necesites?"
     }
   ],
   "historial_grupo": [
