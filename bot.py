@@ -578,11 +578,17 @@ def modo_webhookinfo():
     print("[encuesta-test] simulando pregunta sobre que opciones tiene una encuesta...")
     r_poll = preguntar_ia(
         "[Encuesta] Como se arma el Encuentro? — Opciones: Edicion de fotos en Lightroom / "
-        "Edicion de video en Premiere / Edicion de audio / Guion para videos\n\n"
-        "pero no ves tampoco que opciones hay?",
+        "Edicion de video en Premiere / Edicion de audio / Guion para videos",
         state, permitir_acciones=True,
     )
-    print(f"[encuesta-test] respuesta: {r_poll!r}")
+    print(f"[encuesta-test] respuesta directa: {r_poll!r}")
+    r_poll2 = preguntar_ia(
+        "[Encuesta] Como se arma el Encuentro? — Opciones: Edicion de fotos en Lightroom / "
+        "Edicion de video en Premiere / Edicion de audio / Guion para videos\n\n"
+        "que opciones hay en esa encuesta?",
+        state, permitir_acciones=True,
+    )
+    print(f"[encuesta-test] respuesta pregunta directa: {r_poll2!r}")
 
     for msg in ["hola", "dale un buen dia a los players y presentate"]:
         t1 = time.monotonic()
