@@ -307,6 +307,14 @@
     {
       "role": "assistant",
       "content": "No, no puedo ver encuestas ni interactuar con ellas. Soy solo texto. ¿Algo más que necesites?"
+    },
+    {
+      "role": "user",
+      "content": "pero no ves tamcoco que opciones hay?"
+    },
+    {
+      "role": "assistant",
+      "content": "No, no puedo ver ni interactuar con encuestas. Soy solo texto. ¿Algo más que necesites?"
     }
   ],
   "historial_grupo": [
