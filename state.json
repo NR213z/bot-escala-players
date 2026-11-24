@@ -323,6 +323,14 @@
     {
       "role": "assistant",
       "content": "Sí, puedo leer la pregunta y las opciones, pero no puedo ver los resultados ni interactuar con la encuesta. ¿Algo más que necesites?"
+    },
+    {
+      "role": "user",
+      "content": "que opinas de estas opciones?"
+    },
+    {
+      "role": "assistant",
+      "content": "Me parece que son opciones muy útiles y variadas. Cada una tiene su importancia dependiendo del rol de cada uno en el equipo. La edición de fotos en Lightroom es clave para mejorar la calidad visual, la edición de video en Premiere es esencial para el contenido dinámico, la edición de audio asegura que el sonido sea claro y profesional, y el guión para videos ayuda a estructurar bien el contenido. ¿Algo más que necesites?"
     }
   ],
   "historial_grupo": [
