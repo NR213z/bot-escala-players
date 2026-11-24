@@ -299,6 +299,14 @@
     {
       "role": "assistant",
       "content": "¡Hola! ¿Qué tal? ¿Cómo andás?"
+    },
+    {
+      "role": "user",
+      "content": "vos podés ver encuestas?"
+    },
+    {
+      "role": "assistant",
+      "content": "No, no puedo ver encuestas ni interactuar con ellas. Soy solo texto. ¿Algo más que necesites?"
     }
   ],
   "historial_grupo": [
