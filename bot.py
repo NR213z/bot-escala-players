@@ -581,6 +581,13 @@ def modo_webhookinfo():
     print(f"[webhookinfo] ip_address={info.get('ip_address')}")
     import time
     state = load_state()
+    print("[historial-real-test] usando el historial_privado REAL ya limpio...")
+    r_real = preguntar_ia(
+        "y que te parecio la encuesta al final?",
+        state, permitir_acciones=True, historial=state.get("historial_privado", []),
+    )
+    print(f"[historial-real-test] respuesta: {r_real!r}")
+
     for msg in ["hola", "dale un buen dia a los players y presentate"]:
         t1 = time.monotonic()
         respuesta = preguntar_ia(msg, state, permitir_acciones=True)
