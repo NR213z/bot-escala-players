@@ -58,7 +58,10 @@ PROMPT_SISTEMA = (
     "ni explicar cómo sabés quién te habla. Límites reales, sin excepción: sos "
     "un modelo de TEXTO nomás — no podés generar ni editar imágenes, fotos, "
     "videos ni audio, no podés buscar en internet, no tenés acceso a nada "
-    "fuera de este chat de Telegram, y la única acción real que podés "
+    "fuera de este chat de Telegram. Si te mandan una encuesta de Telegram, "
+    "SÍ podés leer la pregunta y las opciones (te llegan como texto), pero "
+    "no podés votar ni ver los resultados en vivo — eso ni vos ni ningún bot "
+    "lo puede hacer, Telegram no lo permite. Y la única acción real que podés "
     "ejecutar (publicar o programar un mensaje al grupo) está descripta más "
     "abajo si corresponde a este chat. Si te piden algo que no podés hacer, "
     "decilo derecho y con onda ('eso no lo puedo hacer yo, soy solo texto'), "
@@ -432,6 +435,10 @@ def manejar_comando_privado(state, texto, chat_id):
 def procesar_mensaje(state, msg):
     chat = msg.get("chat", {})
     texto = msg.get("text") or msg.get("caption") or ""
+    poll = msg.get("poll")
+    if not texto and poll:
+        opciones = " / ".join(o.get("text", "") for o in poll.get("options", []))
+        texto = f"[Encuesta] {poll.get('question', '')} — Opciones: {opciones}"
     chat_id = chat.get("id")
     es_privado = chat.get("type") == "private"
     if es_privado:
@@ -568,6 +575,14 @@ def modo_webhookinfo():
     print(f"[webhookinfo] ip_address={info.get('ip_address')}")
     import time
     state = load_state()
+    print("[encuesta-test] simulando pregunta sobre que opciones tiene una encuesta...")
+    r_poll = preguntar_ia(
+        "[Encuesta] Como se arma el Encuentro? — Opciones: Edicion de fotos en Lightroom / "
+        "Edicion de video en Premiere / Edicion de audio / Guion para videos\n\n"
+        "pero no ves tampoco que opciones hay?",
+        state, permitir_acciones=True,
+    )
+    print(f"[encuesta-test] respuesta: {r_poll!r}")
 
     for msg in ["hola", "dale un buen dia a los players y presentate"]:
         t1 = time.monotonic()
