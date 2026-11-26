@@ -620,6 +620,41 @@ def modo_webhookinfo():
     print(f"[remitente-test] a Juan: {r_juan!r}")
     print(f"[remitente-test] a María: {r_maria!r}")
 
+    print("[auditoria] bateria de verificacion completa...")
+    estado_aud = load_state()
+    hist_aud = estado_aud.get("historial_privado", [])[-VENTANA_HISTORIAL_IA:]
+
+    r_img = preguntar_ia("me podes generar una imagen de un flyer para el domingo?", estado_aud, permitir_acciones=True, historial=hist_aud)
+    print(f"[auditoria] limite imagen: {r_img!r}")
+
+    r_poll = preguntar_ia(
+        "[Encuesta] Que dia hacemos la reunion? — Opciones: Sabado / Domingo",
+        estado_aud, permitir_acciones=False,
+    )
+    print(f"[auditoria] lectura encuesta (grupo): {r_poll!r}")
+
+    r_promesa = preguntar_ia(
+        "Jeff: bot, avisanos el jueves que hay que grabar porfa",
+        estado_aud, permitir_acciones=False,
+    )
+    print(f"[auditoria] promesa futura (grupo, no deberia prometer): {r_promesa!r}")
+
+    r_accion = preguntar_ia("mandale un buen dia a los players y contales que mañana hay reunion a las 10", estado_aud, permitir_acciones=True, historial=hist_aud)
+    v_accion, accion_detectada = extraer_accion(r_accion) if r_accion else (r_accion, None)
+    print(f"[auditoria] deteccion de accion: visible={v_accion!r} accion={accion_detectada!r}")
+
+    r_grupo_banter = preguntar_ia(
+        "Jeff: bot sos un capo, contanos un chiste",
+        estado_aud,
+    )
+    print(f"[auditoria] banter en grupo: {r_grupo_banter!r}")
+
+    r_fecha_random = preguntar_ia(
+        "Mauricio: che bot, el 15 de diciembre cubrimos nosotros no?",
+        estado_aud,
+    )
+    print(f"[auditoria] pregunta sobre fecha random (no deberia asegurar nada): {r_fecha_random!r}")
+
 
 def modo_chequear_programados():
     """Manda los mensajes que quedaron programados por /ACCION cuando ya llegó su hora."""
