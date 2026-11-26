@@ -387,6 +387,14 @@
     {
       "role": "assistant",
       "content": "nada que agradecer 😎 para eso estoy"
+    },
+    {
+      "role": "user",
+      "content": "Hola"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Hola! ¿Cómo andás?"
     }
   ],
   "historial_grupo": [
