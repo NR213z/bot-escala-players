@@ -278,10 +278,13 @@ def extraer_accion(respuesta):
     return visible, accion
 
 
+VENTANA_HISTORIAL_IA = 16  # turnos recientes que se le mandan a la IA; el resto se guarda igual en state.json
+
+
 def charlar(chat_id, texto, state, permitir_acciones=False, remitente=None, historial_key="historial_privado"):
     texto_entrada = f"{remitente}: {texto}" if remitente else texto
     historial = state.get(historial_key, [])
-    respuesta = preguntar_ia(texto_entrada, state, permitir_acciones, historial)
+    respuesta = preguntar_ia(texto_entrada, state, permitir_acciones, historial[-VENTANA_HISTORIAL_IA:])
     if not respuesta:
         return
     visible, accion = extraer_accion(respuesta) if permitir_acciones else (respuesta, None)
@@ -589,12 +592,11 @@ def modo_webhookinfo():
     print(f"[webhookinfo] ip_address={info.get('ip_address')}")
     import time
     state = load_state()
-    print("[historial-real-test] usando el historial_privado REAL ya limpio...")
-    r_real = preguntar_ia(
-        "y que te parecio la encuesta al final?",
-        state, permitir_acciones=True, historial=state.get("historial_privado", []),
-    )
-    print(f"[historial-real-test] respuesta: {r_real!r}")
+    print("[ventana-historial-test] simulando 'h' con el historial real, ya acotado a la ventana...")
+    hist_real = state.get("historial_privado", [])
+    print(f"[ventana-historial-test] historial_privado completo: {len(hist_real)} turnos, se manda solo los ultimos {VENTANA_HISTORIAL_IA}")
+    r_h = preguntar_ia("h", state, permitir_acciones=True, historial=hist_real[-VENTANA_HISTORIAL_IA:])
+    print(f"[ventana-historial-test] respuesta: {r_h!r}")
 
     for msg in ["hola", "dale un buen dia a los players y presentate"]:
         t1 = time.monotonic()
