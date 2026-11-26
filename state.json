@@ -797,6 +797,14 @@
     {
       "role": "assistant",
       "content": "¡De nada Camila! ¡Para eso estoy!"
+    },
+    {
+      "role": "user",
+      "content": "Nicolás Ríos ARG: @escala_players_bot que onda?"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Buen día Nico! ¿Todo bien?"
     }
   ],
   "pendiente_nombres": {
