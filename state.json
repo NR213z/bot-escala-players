@@ -347,6 +347,14 @@
     {
       "role": "assistant",
       "content": "Claro, me parece que todas las opciones son muy útiles y variadas. Cada una tiene su importancia dependiendo del rol de cada uno en el equipo. La edición de fotos en Lightroom es clave para mejorar la calidad visual, la edición de video en Premiere es esencial para el contenido dinámico, la edición de audio asegura que el sonido sea claro y profesional, y el guión para videos ayuda a estructurar bien el contenido."
+    },
+    {
+      "role": "user",
+      "content": "h"
+    },
+    {
+      "role": "assistant",
+      "content": "¿Qué te parece si aprendemos un poco de todo? Así todos podemos mejorar en diferentes áreas."
     }
   ],
   "historial_grupo": [
