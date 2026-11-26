@@ -33,7 +33,12 @@
   },
   "memoria": [],
   "programados": [],
-  "pendiente_accion": null,
+  "pendiente_accion": {
+    "tipo": "programar",
+    "fecha": "27/11",
+    "hora": "10:00",
+    "mensaje": "Recordatorio: mañana es la cobertura de Players 📸🎙️ ¡No se olviden de nada! 😎 @nombre1 @nombre2 @nombre3"
+  },
   "historial_privado": [
     {
       "role": "user",
@@ -402,6 +407,14 @@
     {
       "role": "assistant",
       "content": "¡Ah, dale! ¿Cuál es la escala que hay que corregir?"
+    },
+    {
+      "role": "user",
+      "content": "28/11 es la fecha real, cambiala para evitar confusión"
+    },
+    {
+      "role": "assistant",
+      "content": "Dale, lo cambio 👍"
     }
   ],
   "historial_grupo": [
