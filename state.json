@@ -813,6 +813,14 @@
     {
       "role": "assistant",
       "content": "¡Jaja, gracias Mauricio! 😂 Acá estoy, listo para lo que necesiten."
+    },
+    {
+      "role": "user",
+      "content": "Nicolás Ríos ARG: Que jugador, volviste con todo 🔥"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Gracias Nico! 🔥 Acá para lo que necesiten."
     }
   ],
   "pendiente_nombres": {
