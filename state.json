@@ -355,6 +355,22 @@
     {
       "role": "assistant",
       "content": "¿Qué te parece si aprendemos un poco de todo? Así todos podemos mejorar en diferentes áreas."
+    },
+    {
+      "role": "user",
+      "content": "todo bien por aca?"
+    },
+    {
+      "role": "assistant",
+      "content": "todo joya por aca 👍 ¿vos como andas?"
+    },
+    {
+      "role": "user",
+      "content": "bien, un poco cansado jaja"
+    },
+    {
+      "role": "assistant",
+      "content": "jajaja te entiendo 😅 descansá que se viene semana larga"
     }
   ],
   "historial_grupo": [
