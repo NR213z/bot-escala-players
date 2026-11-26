@@ -592,13 +592,6 @@ def modo_webhookinfo():
     print(f"[webhookinfo] ip_address={info.get('ip_address')}")
     import time
     state = load_state()
-    print("[ventana-historial-test] simulando 'h' con el historial real, ya acotado a la ventana...")
-    hist_real = state.get("historial_privado", [])
-    print(f"[ventana-historial-test] historial_privado completo: {len(hist_real)} turnos, se manda solo los ultimos {VENTANA_HISTORIAL_IA}")
-    r_h = preguntar_ia("h", state, permitir_acciones=True, historial=hist_real[-VENTANA_HISTORIAL_IA:])
-    print(f"[ventana-historial-test] respuesta a 'h': {r_h!r}")
-    r_h2 = preguntar_ia("como venimos con todo?", state, permitir_acciones=True, historial=hist_real[-VENTANA_HISTORIAL_IA:])
-    print(f"[ventana-historial-test] respuesta a pregunta normal: {r_h2!r}")
 
     for msg in ["hola", "dale un buen dia a los players y presentate"]:
         t1 = time.monotonic()
