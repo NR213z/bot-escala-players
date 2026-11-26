@@ -32,13 +32,14 @@
     "2026-10-28": "ESCALA SABADO 28/10 \n\nEncuentro FJU🇳🇱🥳\n\n📸 Fotos: \n▫️ @brandoncandia \n\n📱Reels: \n▫️ @Jeffx100 \n\n📲 Editar Rells: \n▫️ @Jeffx100 \n\n✍ Copys: \n▫️ @priguaymas \n\n🖼 Zócalo:\n▫️ @JessicaLopezok"
   },
   "memoria": [],
-  "programados": [],
-  "pendiente_accion": {
-    "tipo": "programar",
-    "fecha": "27/11",
-    "hora": "10:00",
-    "mensaje": "Recordatorio: mañana es la cobertura de Players 📸🎙️ ¡No se olviden de nada! 😎 @nombre1 @nombre2 @nombre3"
-  },
+  "programados": [
+    {
+      "mensaje": "Recordatorio: mañana es la cobertura de Players 📸🎙️ ¡No se olviden de nada! 😎 @nombre1 @nombre2 @nombre3",
+      "cuando": "2026-11-27T10:00:00-03:00",
+      "enviado": false
+    }
+  ],
+  "pendiente_accion": null,
   "historial_privado": [
     {
       "role": "user",
