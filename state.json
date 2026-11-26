@@ -371,6 +371,22 @@
     {
       "role": "assistant",
       "content": "jajaja te entiendo 😅 descansá que se viene semana larga"
+    },
+    {
+      "role": "user",
+      "content": "dale, te molesto con otra cosa despues"
+    },
+    {
+      "role": "assistant",
+      "content": "dale sin problema 🙌 cuando quieras"
+    },
+    {
+      "role": "user",
+      "content": "genio, gracias"
+    },
+    {
+      "role": "assistant",
+      "content": "nada que agradecer 😎 para eso estoy"
     }
   ],
   "historial_grupo": [

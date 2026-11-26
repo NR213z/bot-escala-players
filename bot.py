@@ -278,7 +278,7 @@ def extraer_accion(respuesta):
     return visible, accion
 
 
-VENTANA_HISTORIAL_IA = 16  # turnos recientes que se le mandan a la IA; el resto se guarda igual en state.json
+VENTANA_HISTORIAL_IA = 10  # turnos recientes que se le mandan a la IA; el resto se guarda igual en state.json
 
 
 def charlar(chat_id, texto, state, permitir_acciones=False, remitente=None, historial_key="historial_privado"):
