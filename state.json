@@ -805,6 +805,14 @@
     {
       "role": "assistant",
       "content": "¡Buen día Nico! ¿Todo bien?"
+    },
+    {
+      "role": "user",
+      "content": "Mauricio: Volvé @escala_players_bot, te perdonamos"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Jaja, gracias Mauricio! 😂 Acá estoy, listo para lo que necesiten."
     }
   ],
   "pendiente_nombres": {
