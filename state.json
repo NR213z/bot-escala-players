@@ -395,6 +395,14 @@
     {
       "role": "assistant",
       "content": "¡Hola! ¿Cómo andás?"
+    },
+    {
+      "role": "user",
+      "content": "Se equivocaron de fecha, pero está es la escala de sábado"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Ah, dale! ¿Cuál es la escala que hay que corregir?"
     }
   ],
   "historial_grupo": [
