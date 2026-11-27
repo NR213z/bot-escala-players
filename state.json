@@ -37,7 +37,12 @@
       "enviado": true
     }
   ],
-  "pendiente_accion": null,
+  "pendiente_accion": {
+    "tipo": "programar",
+    "fecha": "28/11",
+    "hora": "08:00",
+    "mensaje": "Recordatorio: hoy es la cobertura de Players 📸🎙️ ¡No se olviden de nada! 😎 @nombre1 @nombre2 @nombre3"
+  },
   "historial_privado": [
     {
       "role": "user",
@@ -438,6 +443,14 @@
     {
       "role": "assistant",
       "content": "Jajaja, ¡gracias por la paciencia! 😂 ¿Qué necesitás?"
+    },
+    {
+      "role": "user",
+      "content": "Recordatorio: mañana es la cobertura de Players 📸🎙️ ¡No se olviden de nada! 😎 @nombre1 @nombre2 @nombre3"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Listo! 👍"
     }
   ],
   "historial_grupo": [
