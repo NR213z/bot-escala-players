@@ -8,10 +8,12 @@
   },
   "durable_objects": {
     "bindings": [
-      { "name": "CHAT_BUFFER", "class_name": "ChatBuffer" }
+      { "name": "CHAT_BUFFER", "class_name": "ChatBuffer" },
+      { "name": "ALERT_GATE", "class_name": "AlertGate" }
     ]
   },
   "migrations": [
-    { "tag": "v1", "new_sqlite_classes": ["ChatBuffer"] }
+    { "tag": "v1", "new_sqlite_classes": ["ChatBuffer"] },
+    { "tag": "v2", "new_sqlite_classes": ["AlertGate"] }
   ]
 }

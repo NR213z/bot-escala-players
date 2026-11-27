@@ -340,6 +340,7 @@ def manejar_cronograma(state, texto):
         f"{e['anio']}-{e['mes']:02d}" == mes_key for e in state["eventos"]
     )
     tipo = "reemplazo" if existe_mes else "nuevo"
+    pendiente_anterior = state.get("pendiente")
     state["pendiente"] = {
         "mes_key": mes_key,
         "mes_nombre": NOMBRES_MES.get(mes_nominal, str(mes_nominal)),
@@ -348,13 +349,19 @@ def manejar_cronograma(state, texto):
     }
     lista = formatear_lista_bullets(eventos)
     mes_cap = NOMBRES_MES.get(mes_nominal, "").capitalize()
+    aviso_pisado = ""
+    if pendiente_anterior:
+        aviso_pisado = (
+            f"⚠️ Esto pisa un cronograma de <b>{pendiente_anterior.get('mes_nombre', '?').capitalize()}</b> "
+            f"que te había mandado antes y todavía no confirmaste — quedó descartado, nunca se guardó.\n\n"
+        )
     if tipo == "reemplazo":
         pregunta = (
-            f"⚠️ Ya tenía un cronograma de <b>{mes_cap}</b> registrado. Encontré estas fechas nuevas:\n\n"
+            f"{aviso_pisado}⚠️ Ya tenía un cronograma de <b>{mes_cap}</b> registrado. Encontré estas fechas nuevas:\n\n"
             f"{lista}\n\n¿Reemplazo el anterior con este? 🔄"
         )
     else:
-        pregunta = f"📋 <b>Cronograma de {mes_cap}</b> — encontré estas fechas de Players:\n\n{lista}\n\n¿Las registro? 🤔"
+        pregunta = f"{aviso_pisado}📋 <b>Cronograma de {mes_cap}</b> — encontré estas fechas de Players:\n\n{lista}\n\n¿Las registro? 🤔"
     if OWNER_CHAT_ID:
         enviar(
             OWNER_CHAT_ID,
@@ -377,11 +384,18 @@ def resolver_anio_para_fecha(state, dia, mes):
 def manejar_escala_nombres(state, texto, dia, mes):
     anio = resolver_anio_para_fecha(state, dia, mes)
     texto_escapado = escapar(texto.strip())
+    pendiente_anterior = state.get("pendiente_nombres")
     state["pendiente_nombres"] = {"anio": anio, "dia": dia, "mes": mes, "texto": texto_escapado}
+    aviso_pisado = ""
+    if pendiente_anterior:
+        aviso_pisado = (
+            f"⚠️ Esto pisa la escala del <b>{pendiente_anterior['dia']}/{pendiente_anterior['mes']}</b> "
+            f"que te había mandado antes y todavía no confirmaste — quedó descartada, nunca se guardó.\n\n"
+        )
     if OWNER_CHAT_ID:
         enviar(
             OWNER_CHAT_ID,
-            f"🗒️ Encontré la escala con nombres para el <b>{dia}/{mes}</b>:\n\n{texto_escapado}\n\n"
+            f"{aviso_pisado}🗒️ Encontré la escala con nombres para el <b>{dia}/{mes}</b>:\n\n{texto_escapado}\n\n"
             f"¿La guardo para mandarla junto con el recordatorio de ese día? 🤔",
             botones=[[
                 {"text": "✅ Sí", "callback_data": "nombres_si"},

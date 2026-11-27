@@ -15,6 +15,52 @@ const MODO_POR_CRON = {
   "*/15 * * * *": "chequear-programados", // mensajes que el dueño programó por chat
 };
 
+// Si el GITHUB_DISPATCH_TOKEN vence (como pasó una vez), el único síntoma
+// visible era que el bot se quedaba mudo hasta que alguien lo notaba. Este
+// Worker sí puede avisar por su cuenta: le manda a Nicolás un Telegram
+// directo cuando el dispatch a GitHub falla, sin depender de que GitHub
+// funcione. AlertGate evita mandar ese aviso más de una vez cada 30 min
+// mientras el corte dure.
+const COOLDOWN_ALERTA_MS = 30 * 60 * 1000;
+
+export class AlertGate {
+  constructor(state, env) {
+    this.state = state;
+  }
+
+  async fetch() {
+    const ultimo = await this.state.storage.get("ultimo");
+    const ahora = Date.now();
+    if (ultimo && ahora - ultimo < COOLDOWN_ALERTA_MS) {
+      return new Response(JSON.stringify({ avisar: false }));
+    }
+    await this.state.storage.put("ultimo", ahora);
+    return new Response(JSON.stringify({ avisar: true }));
+  }
+}
+
+async function avisarFalloDispatch(env, detalle) {
+  if (!env.TELEGRAM_TOKEN || !env.OWNER_CHAT_ID || !env.ALERT_GATE) return;
+  try {
+    const id = env.ALERT_GATE.idFromName("dispatch-fallido");
+    const stub = env.ALERT_GATE.get(id);
+    const { avisar } = await (await stub.fetch("https://alert-gate/check")).json();
+    if (!avisar) return;
+    await fetch(`https://api.telegram.org/bot${env.TELEGRAM_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: env.OWNER_CHAT_ID,
+        text:
+          `🚨 El bot no puede avisarle a GitHub (${detalle}). ` +
+          `Puede que GITHUB_DISPATCH_TOKEN haya vencido o esté mal — revisalo en el repo o con wrangler.`,
+      }),
+    });
+  } catch (e) {
+    console.error(`No pude mandar la alerta a Telegram: ${e}`);
+  }
+}
+
 async function dispatchWorkflow(env, modo) {
   const res = await fetch(
     `https://api.github.com/repos/${GITHUB_REPO}/actions/workflows/${GITHUB_WORKFLOW}/dispatches`,
@@ -30,6 +76,7 @@ async function dispatchWorkflow(env, modo) {
   );
   if (!res.ok) {
     console.error(`GitHub dispatch error ${res.status}: ${await res.text()}`);
+    await avisarFalloDispatch(env, `workflow_dispatch ${modo}, HTTP ${res.status}`);
   }
 }
 
@@ -45,6 +92,7 @@ async function dispatchUpdate(env, update) {
   });
   if (!res.ok) {
     console.error(`GitHub repository_dispatch error ${res.status}: ${await res.text()}`);
+    await avisarFalloDispatch(env, `repository_dispatch, HTTP ${res.status}`);
   }
 }
 
