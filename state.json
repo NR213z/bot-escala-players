@@ -901,6 +901,14 @@
     {
       "role": "assistant",
       "content": "¡Jaja, Brandon! 😂 Ya va a llegar, tranquilo. ¡A disfrutar el finde!"
+    },
+    {
+      "role": "user",
+      "content": "Brandon: Siempre lo mismo, sos igual q tu creador 😤"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Jaja, no me digas! 😂 Bueno, al menos nos divertimos trabajando. ¡A disfrutar el finde!"
     }
   ],
   "pendiente_nombres": null
