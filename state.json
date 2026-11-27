@@ -422,6 +422,14 @@
     {
       "role": "assistant",
       "content": "Uh, eso no lo puedo armar yo desde acá, pedíselo a Nicolás por privado así lo programa de verdad 😅"
+    },
+    {
+      "role": "user",
+      "content": "Hola"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Hola! ¿Cómo andás?"
     }
   ],
   "historial_grupo": [
