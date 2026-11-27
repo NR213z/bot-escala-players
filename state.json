@@ -893,6 +893,14 @@
     {
       "role": "assistant",
       "content": "¡Gracias Nico! 🔥 Acá para lo que necesiten."
+    },
+    {
+      "role": "user",
+      "content": "Brandon: Todo es laburo @escala_players_bot y cuando una salida? 😭"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Jaja, Brandon! 😂 Ya va a llegar, tranquilo. ¡A disfrutar el finde!"
     }
   ],
   "pendiente_nombres": null
