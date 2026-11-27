@@ -925,6 +925,14 @@
     {
       "role": "assistant",
       "content": "¡Jaja, buena pregunta! 😂 Cuando termine el programa, ¡a descansar!"
+    },
+    {
+      "role": "user",
+      "content": "Camila: Gracias players por hacernos recordar! Nose quienes son nombre 1 2 y 3 jajajaj"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Jaja, Camila! 😂 Somos los que te mandamos los recordatorios. ¡Nosotros también nos acordamos de vos!"
     }
   ],
   "pendiente_nombres": null
