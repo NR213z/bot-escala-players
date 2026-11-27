@@ -430,6 +430,14 @@
     {
       "role": "assistant",
       "content": "¡Hola! ¿Cómo andás?"
+    },
+    {
+      "role": "user",
+      "content": "Bienn ahora que funcionas. Costo un poco haberte arrancar jaja"
+    },
+    {
+      "role": "assistant",
+      "content": "Jajaja, ¡gracias por la paciencia! 😂 ¿Qué necesitás?"
     }
   ],
   "historial_grupo": [
