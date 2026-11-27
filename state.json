@@ -34,7 +34,7 @@
     {
       "mensaje": "Recordatorio: mañana es la cobertura de Players 📸🎙️ ¡No se olviden de nada! 😎 @nombre1 @nombre2 @nombre3",
       "cuando": "2026-11-27T10:00:00-03:00",
-      "enviado": false
+      "enviado": true
     }
   ],
   "pendiente_accion": null,
