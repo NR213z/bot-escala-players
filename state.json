@@ -11,7 +11,8 @@
       "anio": 2026,
       "mes": 11,
       "dia": 28,
-      "categoria": "EJ"
+      "categoria": "EJ",
+      "recordado_manana": true
     },
     {
       "anio": 2026,
