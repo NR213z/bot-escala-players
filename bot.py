@@ -283,10 +283,14 @@ def preguntar_ia(texto, state, permitir_acciones=False, historial=None):
     return None
 
 
+ACCION_RE = re.compile(r"ACCI[OÓ]N:")  # el modelo a veces tipea "ACCIÓN" con tilde
+
+
 def extraer_accion(respuesta):
-    if "ACCION:" not in respuesta:
+    m = ACCION_RE.search(respuesta)
+    if not m:
         return respuesta, None
-    visible, bruto = respuesta.split("ACCION:", 1)
+    visible, bruto = respuesta[:m.start()], respuesta[m.end():]
     visible = visible.strip()
     try:
         accion = json.loads(bruto.strip())
@@ -655,24 +659,6 @@ def modo_webhookinfo():
     r_maria = preguntar_ia("María: hola bot", estado_grupo)
     print(f"[remitente-test] a Juan: {r_juan!r}")
     print(f"[remitente-test] a María: {r_maria!r}")
-
-    print("[mencion-test] pidiendo un recordatorio sin tener nombres reales para esa fecha...")
-    estado_mencion = load_state()
-    pedido = "mandale un recordatorio al grupo para mañana que es la cobertura de Players, mencionando a los que cubren"
-    r_pedido = preguntar_ia(pedido, estado_mencion, permitir_acciones=True)
-    v_pedido, acc_pedido = extraer_accion(r_pedido) if r_pedido else (r_pedido, None)
-    print(f"[mencion-test] pedido -> visible={v_pedido!r} accion={acc_pedido!r}")
-    if r_pedido:
-        historial_mencion = [
-            {"role": "user", "content": pedido},
-            {"role": "assistant", "content": r_pedido},
-        ]
-        r_correccion = preguntar_ia(
-            "no player bot, presta atencion, estas poniendo cualquier arroba",
-            estado_mencion, permitir_acciones=True, historial=historial_mencion,
-        )
-        v_correccion, acc_correccion = extraer_accion(r_correccion) if r_correccion else (r_correccion, None)
-        print(f"[mencion-test] correccion -> visible={v_correccion!r} accion={acc_correccion!r}")
 
 
 def modo_chequear_programados():
