@@ -139,7 +139,19 @@ PROMPT_ACCIONES = (
     "si te pidió algo para más adelante: ACCION: "
     "{\"tipo\":\"programar\",\"fecha\":\"DD/MM\",\"hora\":\"HH:MM\","
     "\"mensaje\":\"...\"}. Si NO te pidió nada para el grupo, charlá nomás y "
-    "NO agregues ninguna línea ACCION."
+    "NO agregues ninguna línea ACCION. Regla sin excepción sobre @menciones: "
+    "JAMÁS inventes, completes o adivines el @usuario de una persona. Un "
+    "@handle solo puede salir de uno de estos dos lugares: (a) lo escribió "
+    "Nicolás explícitamente en este mismo chat, o (b) está en la escala con "
+    "nombres ya guardada para esa fecha puntual. Si el mensaje tendría que "
+    "nombrar a la gente de la cobertura y no tenés ninguna de esas dos "
+    "fuentes, mandalo SIN arrobas y decile a Nicolás que no tenés los "
+    "nombres para esa fecha — nunca rellenes con un @algo inventado tipo "
+    "placeholder. Si Nicolás te corrige porque una @mención está mal o no "
+    "existe, en tu próxima respuesta y en el ACCION que generes esa arroba "
+    "tiene que estar sacada de verdad (no la repitas igual, ni la "
+    "reemplaces por otra inventada): si no tenés con qué reemplazarla, va "
+    "sin esa mención."
 )
 
 
@@ -210,12 +222,15 @@ def api(method, **params):
     return r.json()
 
 
-def enviar(chat_id, texto, botones=None, parse_mode="HTML"):
+def enviar(chat_id, texto, botones=None, parse_mode="HTML", responder_a=None):
     kwargs = {"chat_id": chat_id, "text": texto}
     if parse_mode:
         kwargs["parse_mode"] = parse_mode
     if botones:
         kwargs["reply_markup"] = {"inline_keyboard": botones}
+    if responder_a:
+        kwargs["reply_to_message_id"] = responder_a
+        kwargs["allow_sending_without_reply"] = True
     return api("sendMessage", **kwargs)
 
 
@@ -281,7 +296,7 @@ def extraer_accion(respuesta):
 VENTANA_HISTORIAL_IA = 10  # turnos recientes que se le mandan a la IA; el resto se guarda igual en state.json
 
 
-def charlar(chat_id, texto, state, permitir_acciones=False, remitente=None, historial_key="historial_privado"):
+def charlar(chat_id, texto, state, permitir_acciones=False, remitente=None, historial_key="historial_privado", responder_a=None):
     texto_entrada = f"{remitente}: {texto}" if remitente else texto
     historial = state.get(historial_key, [])
     respuesta = preguntar_ia(texto_entrada, state, permitir_acciones, historial[-VENTANA_HISTORIAL_IA:])
@@ -289,7 +304,7 @@ def charlar(chat_id, texto, state, permitir_acciones=False, remitente=None, hist
         return
     visible, accion = extraer_accion(respuesta) if permitir_acciones else (respuesta, None)
     if visible:
-        enviar(chat_id, visible, parse_mode=None)
+        enviar(chat_id, visible, parse_mode=None, responder_a=responder_a)
         historial.append({"role": "user", "content": texto_entrada})
         historial.append({"role": "assistant", "content": visible})
         state[historial_key] = historial
@@ -499,7 +514,10 @@ def procesar_mensaje(state, msg):
         else:
             remitente_de = msg.get("from", {}) or {}
             remitente = remitente_de.get("first_name") or remitente_de.get("username") or "alguien del grupo"
-            charlar(chat_id, texto, state, permitir_acciones=False, remitente=remitente, historial_key="historial_grupo")
+            charlar(
+                chat_id, texto, state, permitir_acciones=False, remitente=remitente,
+                historial_key="historial_grupo", responder_a=msg.get("message_id"),
+            )
 
 
 def manejar_callback(state, callback):
@@ -634,6 +652,23 @@ def modo_webhookinfo():
     print(f"[remitente-test] a Juan: {r_juan!r}")
     print(f"[remitente-test] a María: {r_maria!r}")
 
+    print("[mencion-test] pidiendo un recordatorio sin tener nombres reales para esa fecha...")
+    estado_mencion = load_state()
+    pedido = "mandale un recordatorio al grupo para mañana que es la cobertura de Players, mencionando a los que cubren"
+    r_pedido = preguntar_ia(pedido, estado_mencion, permitir_acciones=True)
+    v_pedido, acc_pedido = extraer_accion(r_pedido) if r_pedido else (r_pedido, None)
+    print(f"[mencion-test] pedido -> visible={v_pedido!r} accion={acc_pedido!r}")
+    if r_pedido:
+        historial_mencion = [
+            {"role": "user", "content": pedido},
+            {"role": "assistant", "content": r_pedido},
+        ]
+        r_correccion = preguntar_ia(
+            "no player bot, presta atencion, estas poniendo cualquier arroba",
+            estado_mencion, permitir_acciones=True, historial=historial_mencion,
+        )
+        v_correccion, acc_correccion = extraer_accion(r_correccion) if r_correccion else (r_correccion, None)
+        print(f"[mencion-test] correccion -> visible={v_correccion!r} accion={acc_correccion!r}")
 
 
 def modo_chequear_programados():
