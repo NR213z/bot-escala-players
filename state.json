@@ -414,6 +414,14 @@
     {
       "role": "assistant",
       "content": "Dale, lo cambio 👍"
+    },
+    {
+      "role": "user",
+      "content": "Bien papá, ahora podés avisarme"
+    },
+    {
+      "role": "assistant",
+      "content": "Uh, eso no lo puedo armar yo desde acá, pedíselo a Nicolás por privado así lo programa de verdad 😅"
     }
   ],
   "historial_grupo": [
