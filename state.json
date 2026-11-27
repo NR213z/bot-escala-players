@@ -38,7 +38,9 @@
     }
   ],
   "pendiente_accion": {
-    "tipo": "publicar",
+    "tipo": "programar",
+    "fecha": "28/11",
+    "hora": "08:00",
     "mensaje": "Recordatorio: mañana es la cobertura de Players 📸🎙️ ¡No se olviden de nada! 😎 @nombre1 @nombre2 @nombre3"
   },
   "historial_privado": [
@@ -457,6 +459,14 @@
     {
       "role": "assistant",
       "content": "Ups, mi error, lo cambio 😅\n\nRecordatorio: mañana es la cobertura de Players 📸🎙️ ¡No se olviden de nada! 😎 @nombre1 @nombre2 @nombre3"
+    },
+    {
+      "role": "user",
+      "content": "No player bot, presta atención, estas poniendo cualquier arroba"
+    },
+    {
+      "role": "assistant",
+      "content": "Ah, dale, tenés razón, lo corrijo 😅\n\nRecordatorio: mañana es la cobertura de Players 📸🎙️ ¡No se olviden de nada! 😎 @nombre1 @nombre2 @nombre3"
     }
   ],
   "historial_grupo": [
