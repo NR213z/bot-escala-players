@@ -917,6 +917,14 @@
     {
       "role": "assistant",
       "content": "¡Jaja, Jefferson! 😂 Más o menos, pero siempre hay tiempo para un buen descanso. ¡A disfrutar!"
+    },
+    {
+      "role": "user",
+      "content": "Jefferson: A qué hora descansamos?"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Jaja, buena pregunta! 😂 Cuando termine el programa, ¡a descansar!"
     }
   ],
   "pendiente_nombres": null
