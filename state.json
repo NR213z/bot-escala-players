@@ -12,7 +12,8 @@
       "mes": 11,
       "dia": 28,
       "categoria": "EJ",
-      "recordado_manana": true
+      "recordado_manana": true,
+      "recordado_hoy": true
     },
     {
       "anio": 2026,
